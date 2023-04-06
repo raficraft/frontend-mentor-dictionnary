@@ -1,0 +1,38 @@
+.dropList {
+  display: flex;
+  flex-direction: column;
+  position: relative;
+  font-weight: bold;
+  font-size: var(--font-size-s);
+  cursor: pointer;
+}
+
+.select {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.optionsList {
+  display: flex;
+  flex-direction: column;
+  font-weight: bold;
+  transition: ease-in var(--transition-md);
+  cursor: pointer;
+  position: absolute;
+  top: calc(100% + 1rem);
+  color: var(--color-dropList);
+  background-color: var(--background-dropList);
+  padding: 1.5rem;
+  right: 0;
+  border-radius: 1rem;
+  box-sizing: border-box;
+  width: 183px;
+  box-shadow: var(--shadow);
+  gap: 1rem;
+
+  .option:hover,
+  .active {
+    color: var(--clr-accent);
+  }
+}
