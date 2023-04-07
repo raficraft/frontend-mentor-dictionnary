@@ -1,34 +1,27 @@
-"use client";
-import { useEffect, useState, useRef, createRef } from "react";
-import styles from "./Select.module.scss";
-import { useClickOutside } from "@/app/js/hooks/useClickOutside";
-import { IconArrowDown } from "@/app/assets/svg/icons";
+import { useEffect, useState, useRef, createRef, RefObject } from "react";
+import styles from "./DropList.module.scss";
+import { useClickOutside } from "@/src/js/hooks/useClickOutside";
+import { IconArrowDown } from "@/src/assets/svg/icons";
 
-type SelectType = {
-  options: {
-    label: string;
-    value: string;
-    callback: () => void;
-  }[];
-  tabIndex?: number;
-} & React.SelectHTMLAttributes<HTMLSelectElement> &
-  React.OptionHTMLAttributes<HTMLOptionElement>;
+const config = ["Sans-serif", "Serif", "Mono"];
 
-const Select: React.FC<SelectType> = ({ options, tabIndex = 0 }) => {
+const Droplist = ({ options = config, tabIndex = 0 }) => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
   const [show, setShow, refOutsideClick] = useClickOutside(false);
+
   // Dynamical Refs
-  const optionsRefs = useRef<Array<React.RefObject<HTMLSpanElement>>>(
+  const optionsRefs = useRef<Array<RefObject<HTMLLIElement>>>(
     Object.keys(options).map(() => createRef())
   );
 
   const handleClose = (e: React.MouseEvent<HTMLSpanElement>, key: number) => {
     setSelectedIndex(key);
     setShow(!show);
-    options[key].callback();
+    //  options[key].callback();
   };
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+    console.log(event.key);
     switch (event.key) {
       case "Enter":
         !show && setShow(true);
@@ -101,7 +94,7 @@ const Select: React.FC<SelectType> = ({ options, tabIndex = 0 }) => {
             );
             const currentElement = currentRef?.current;
             currentElement?.blur();
-            options[selectedIndex].callback();
+            // options[selectedIndex].callback();
             setShow(false);
             break;
         }
@@ -121,12 +114,11 @@ const Select: React.FC<SelectType> = ({ options, tabIndex = 0 }) => {
   }, [show, selectedIndex, Object.keys(options).length, optionsRefs]);
 
   return (
-    <div className={styles.dropList} ref={refOutsideClick} aria-expanded={show}>
+    <div className={styles.dropList} ref={refOutsideClick}>
+      <span id="select-options-label" className="sr-only">
+        Select an option for change the font-familly
+      </span>
       <span
-        aria-haspopup="listbox"
-        aria-controls="select-options"
-        aria-selected={show ? "true" : "false"}
-        aria-label={`Selected option: ${options[selectedIndex]}`}
         className={styles.select}
         tabIndex={tabIndex}
         onClick={() => {
@@ -134,42 +126,32 @@ const Select: React.FC<SelectType> = ({ options, tabIndex = 0 }) => {
         }}
         onKeyDown={handleKeyDown}
       >
-        {options[selectedIndex].label}
+        {options[selectedIndex]}
         <IconArrowDown />
       </span>
-
       {show && (
-        <span
-          id="select-options"
-          role="listbox"
-          aria-labelledby="select-options-label"
-          className={styles.optionsList}
-        >
-          <span id="select-options-label" className="sr-only">
-            Select an option for change the font-familly
-          </span>
-          {options.map((option, key) => {
+        <ul className={styles.optionsList} tabIndex={tabIndex}>
+          {options.map((list, key) => {
             return (
-              <span
+              <li
                 className={`
                   ${styles.option} 
                   ${key === selectedIndex ? styles.active : ""}
                 `}
-                aria-selected={selectedIndex === key ? "true" : "false"}
-                tabIndex={tabIndex + key + 1}
                 key={`option-${key}`}
-                onClick={(e) => handleClose(e, key)}
+                data-open={show}
+                tabIndex={tabIndex + key + 1}
                 ref={optionsRefs.current[key]}
-                value={option.value}
+                onClick={(e) => handleClose(e, key)}
               >
-                {option.label}
-              </span>
+                {list}
+              </li>
             );
           })}
-        </span>
+        </ul>
       )}
     </div>
   );
 };
 
-export default Select;
+export default Droplist;

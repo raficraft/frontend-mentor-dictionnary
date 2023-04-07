@@ -5,6 +5,10 @@
   font-weight: bold;
   font-size: var(--font-size-s);
   cursor: pointer;
+
+  li {
+    list-style-type: none;
+  }
 }
 
 .select {
