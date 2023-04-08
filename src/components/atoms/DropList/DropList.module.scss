@@ -2,12 +2,14 @@
   display: flex;
   flex-direction: column;
   position: relative;
-  font-weight: bold;
-  font-size: var(--font-size-s);
+
   cursor: pointer;
 
-  li {
-    list-style-type: none;
+  button {
+    background: none;
+    border: none;
+    font-weight: bold;
+    font-size: var(--font-size-s);
   }
 }
 
@@ -20,7 +22,6 @@
 .optionsList {
   display: flex;
   flex-direction: column;
-  font-weight: bold;
   transition: ease-in var(--transition-md);
   cursor: pointer;
   position: absolute;
@@ -34,6 +35,10 @@
   width: 183px;
   box-shadow: var(--shadow);
   gap: 1rem;
+
+  .option {
+    text-align: left;
+  }
 
   .option:hover,
   .active {

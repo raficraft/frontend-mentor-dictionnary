@@ -41,3 +41,4 @@ Check out our [Next.js deployment documentation](https://nextjs.org/docs/deploym
 
 npx create-next-app@latest
 npm install --save-dev sass
+npm install eslint-plugin-react-hooks --save-dev
