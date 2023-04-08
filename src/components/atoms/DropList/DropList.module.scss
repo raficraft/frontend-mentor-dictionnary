@@ -10,6 +10,8 @@
     border: none;
     font-weight: bold;
     font-size: var(--font-size-s);
+    color: var(--color);
+    font-family: var(--font-family);
   }
 }
 
@@ -20,21 +22,21 @@
 }
 
 .optionsList {
-  display: flex;
-  flex-direction: column;
-  transition: ease-in var(--transition-md);
-  cursor: pointer;
   position: absolute;
   top: calc(100% + 1rem);
-  color: var(--color-dropList);
-  background-color: var(--background-dropList);
-  padding: 1.5rem;
   right: 0;
-  border-radius: 1rem;
-  box-sizing: border-box;
+  display: flex;
+  flex-direction: column;
   width: 183px;
-  box-shadow: var(--shadow);
+  padding: 1.5rem;
   gap: 1rem;
+  color: var(--color-dropList);
+  box-sizing: border-box;
+  background-color: var(--background-dropList);
+  box-shadow: var(--shadow);
+  transition: ease-in var(--transition-md);
+  border-radius: 1rem;
+  cursor: pointer;
 
   .option {
     text-align: left;

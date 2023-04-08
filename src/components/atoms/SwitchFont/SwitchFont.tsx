@@ -3,7 +3,8 @@ import Droplist from "@/atoms/DropList/DropList";
 const config = ["Sans-serif", "Serif", "Mono"];
 
 const changeFont = (font: string) => {
-  alert(`change for this font ${font}`);
+  const root = document.querySelector(":root");
+  document.body.style.setProperty("--font-family", font);
 };
 
 const SwitchFont = () => {
