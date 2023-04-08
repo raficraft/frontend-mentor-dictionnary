@@ -1,20 +1,12 @@
 import React, { ChangeEvent } from "react";
 import { IconMoon } from "../../../../assets/svg/icons";
-import internalStyles from "./SwitchButton.module.scss";
+import styles from "./SwitchButton.module.scss";
 
 type SwitchButtonProps = {
   callback: (e: ChangeEvent<HTMLInputElement>) => void;
-  externalStyles?: any;
 } & React.HTMLAttributes<HTMLDivElement>;
 
-const SwitchButton: React.FC<SwitchButtonProps> = ({
-  callback,
-  externalStyles,
-  ...props
-}) => {
-  const styles = { ...internalStyles, ...externalStyles };
-
-  console.log(styles);
+const SwitchButton: React.FC<SwitchButtonProps> = ({ callback, ...props }) => {
   return (
     <div className={`${styles.switchButton}`} {...props}>
       <input

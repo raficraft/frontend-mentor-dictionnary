@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import SwitchButton from "@/src/components/atoms/form/SwitchButton/SwitchButton";
-import styles from "./SwitchTheme.module.scss";
 
 const SwitchTheme: React.FC = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
@@ -20,7 +19,6 @@ const SwitchTheme: React.FC = () => {
       callback={(e) => {
         handleTheme(e);
       }}
-      externalStyles={styles}
     />
   );
 };

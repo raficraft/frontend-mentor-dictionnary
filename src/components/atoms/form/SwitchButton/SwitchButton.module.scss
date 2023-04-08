@@ -8,11 +8,11 @@ $spacing: 3px;
   gap: 1.25rem;
 
   &[data-theme="dark"] .checkbox {
-    background-color: gray;
+    background-color: var(--clr-accent);
   }
 
   &[data-theme="dark"] label {
-    color: gray;
+    color: var(--clr-accent);
   }
 }
 
