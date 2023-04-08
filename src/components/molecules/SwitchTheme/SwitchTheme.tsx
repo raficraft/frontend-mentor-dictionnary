@@ -1,11 +1,11 @@
 import React, { useEffect, useState } from "react";
-import SwitchButton from "../SwitchButton/SwitchButton";
+import SwitchButton from "@/src/components/atoms/form/SwitchButton/SwitchButton";
+import styles from "./SwitchTheme.module.scss";
 
 const SwitchTheme: React.FC = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
 
   const handleTheme = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    console.log(e.target.checked);
     const themes = e.target.checked ? "dark" : "light";
     setTheme(themes);
   };
@@ -16,11 +16,11 @@ const SwitchTheme: React.FC = () => {
 
   return (
     <SwitchButton
-      id="lol"
       data-theme={theme}
       callback={(e) => {
         handleTheme(e);
       }}
+      externalStyles={styles}
     />
   );
 };

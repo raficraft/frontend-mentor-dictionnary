@@ -1,13 +1,16 @@
-import SwitchFont from "@/atoms/SwitchFont/SwitchFont";
+import { IconDictionary } from "@/src/assets/svg/icons";
 import styles from "./Header.module.scss";
-import SwitchButton from "@/atoms/SwitchButton/SwitchButton";
-import SwitchTheme from "@/atoms/SwitchTheme/SwitchTheme";
+import SwitchTheme from "@/molecules/SwitchTheme/SwitchTheme";
+import SwitchFont from "@/molecules/SwitchFont/SwitchFont";
 
 export const Header = () => {
   return (
     <header className={`rootContainer ${styles.header}`}>
-      <SwitchFont />
-      <SwitchTheme />
+      <IconDictionary />
+      <div className={`${styles.switch}`}>
+        <SwitchFont />
+        <SwitchTheme />
+      </div>
     </header>
   );
 };

@@ -25,6 +25,8 @@
   --transition-xs: 0.3s;
   --transition-md: 0.5s;
 
+  --root-size: 46rem;
+
   // NEXT.js default font
   // --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
   //   "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
@@ -62,19 +64,31 @@ label {
   cursor: pointer;
 }
 
+html {
+  height: 100%;
+}
+
 body {
+  height: 100%;
   background-color: var(--background);
   font-family: var(--font-family);
   color: var(--color);
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+}
+
+#__next {
+  background-color: var(--clr-accent);
+  max-width: var(--root-size);
+  width: 100%;
+  height: inherit;
 }
 
 .rootContainer {
   display: flex;
-  max-width: 46rem;
+  max-width: var(--root-size);
   width: 100%;
 }
 
