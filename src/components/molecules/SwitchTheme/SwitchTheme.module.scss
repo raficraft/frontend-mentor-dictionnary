@@ -6,18 +6,6 @@ $spacing: 3px;
   display: flex;
   align-items: center;
   gap: 1.25rem;
-
-  &[data-theme="dark"] .checkbox {
-    background-color: var(--clr-accent);
-  }
-
-  &[data-theme="dark"] label {
-    color: var(--clr-accent);
-
-    svg {
-      stroke: red;
-    }
-  }
 }
 
 .checkbox {
@@ -34,18 +22,72 @@ $spacing: 3px;
   appearance: none;
 
   &::before {
-    display: block;
     position: absolute;
+    display: block;
     left: $spacing;
-    content: " ";
     width: calc($height - ($spacing * 2));
     height: calc($height - ($spacing * 2));
+    transition: ease-in var(--transition-xs);
+    content: " ";
     background-color: var(--clr-primary-800);
     border-radius: 99999px;
-    transition: ease-in var(--transition-xs);
   }
 
   &:checked::before {
     transform: translateX(calc(200% - ($height / 2) + $spacing));
+    background-color: var(--clr-accent);
   }
+}
+
+.label {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+  height: $height;
+  overflow: hidden;
+  position: relative;
+  height: $height;
+  width: $height;
+  svg {
+    height: $height;
+    width: $height;
+  }
+}
+
+.animate_switchTheme {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 1rem;
+
+  // height: calc(3 * $height);
+  // position: absolute;
+  // width: $height;
+  // content: " ";
+  // transform: translateY(0%);
+}
+
+.enter,
+.appear {
+  opacity: 0;
+  transform: translateY(-100%);
+}
+
+.enterActive,
+.appearActive {
+  opacity: 1;
+  transform: translateY(0);
+  transition: opacity 0.3s, transform 0.3s;
+}
+
+.exit {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.exitActive {
+  opacity: 0;
+  transform: translateY(-100%);
+  transition: opacity 0.3s, transform 0.3s;
 }

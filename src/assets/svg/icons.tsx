@@ -67,14 +67,31 @@ export function IconMagnify(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1em"
-      height="1em"
+      width="1rem"
+      height="1rem"
       viewBox="0 0 24 24"
       {...props}
     >
       <path
         fill="currentColor"
         d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5Z"
+      ></path>
+    </svg>
+  );
+}
+
+export function IconSun(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 256 256"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M116 36v-4a12 12 0 0 1 24 0v4a12 12 0 0 1-24 0Zm80 92a68 68 0 1 1-68-68a68.07 68.07 0 0 1 68 68Zm-24 0a44 44 0 1 0-44 44a44.05 44.05 0 0 0 44-44ZM51.51 68.49a12 12 0 1 0 17-17l-4-4a12 12 0 0 0-17 17Zm0 119l-4 4a12 12 0 0 0 17 17l4-4a12 12 0 1 0-17-17ZM196 72a12 12 0 0 0 8.49-3.51l4-4a12 12 0 0 0-17-17l-4 4A12 12 0 0 0 196 72Zm8.49 115.51a12 12 0 0 0-17 17l4 4a12 12 0 0 0 17-17ZM48 128a12 12 0 0 0-12-12h-4a12 12 0 0 0 0 24h4a12 12 0 0 0 12-12Zm80 80a12 12 0 0 0-12 12v4a12 12 0 0 0 24 0v-4a12 12 0 0 0-12-12Zm96-92h-4a12 12 0 0 0 0 24h4a12 12 0 0 0 0-24Z"
       ></path>
     </svg>
   );

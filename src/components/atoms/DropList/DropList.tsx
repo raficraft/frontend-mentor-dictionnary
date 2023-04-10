@@ -76,37 +76,35 @@ const Droplist: React.FC<DropListProps> = ({
         <IconArrowDown />
       </button>
 
-      {show && (
-        <div className={styles.optionsList}>
-          {options.map((option, key) => {
-            return (
-              <button
-                className={`
+      <div className={styles.optionsList} data-show={show}>
+        {options.map((option, key) => {
+          return (
+            <button
+              className={`
                   ${styles.option} 
                   ${key === selectedIndex ? styles.active : ""}
                 `}
-                type="button"
-                key={key}
-                tabIndex={tabIndex + key + 1}
-                value={option}
-                ref={optionsRefs.current[key]}
-                onClick={() => {
-                  setSelectedIndex(key);
-                  setShow(false);
-                  callback && callback(option);
-                }}
-                onKeyDown={() => {
-                  setSelectedIndex(key);
-                  setShow(false);
-                  callback && callback(option);
-                }}
-              >
-                {option}
-              </button>
-            );
-          })}
-        </div>
-      )}
+              type="button"
+              key={key}
+              tabIndex={tabIndex + key + 1}
+              value={option}
+              ref={optionsRefs.current[key]}
+              onClick={() => {
+                setSelectedIndex(key);
+                setShow(false);
+                callback && callback(option);
+              }}
+              onKeyDown={() => {
+                setSelectedIndex(key);
+                setShow(false);
+                callback && callback(option);
+              }}
+            >
+              {option}
+            </button>
+          );
+        })}
+      </div>
     </div>
   );
 };

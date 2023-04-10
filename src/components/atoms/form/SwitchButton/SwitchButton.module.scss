@@ -6,13 +6,8 @@ $spacing: 3px;
   display: flex;
   align-items: center;
   gap: 1.25rem;
-
-  &[data-theme="dark"] .checkbox {
-    background-color: var(--clr-accent);
-  }
-
-  &[data-theme="dark"] label {
-    color: var(--clr-accent);
+  :has(.animate_switchTheme) {
+    background-color: blue;
   }
 }
 

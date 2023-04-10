@@ -1,12 +1,22 @@
-import React, { ChangeEvent } from "react";
-import { IconMoon } from "../../../../assets/svg/icons";
-import styles from "./SwitchButton.module.scss";
+import React, { ChangeEvent, FC, HTMLAttributes, Ref } from "react";
+import internalStyles from "./SwitchButton.module.scss";
 
 type SwitchButtonProps = {
   callback: (e: ChangeEvent<HTMLInputElement>) => void;
-} & React.HTMLAttributes<HTMLDivElement>;
+  children?: string | React.ReactElement | SVGElement;
+  externalStyles?: any;
+  inputRef?: Ref<HTMLInputElement>;
+} & HTMLAttributes<HTMLDivElement>;
 
-const SwitchButton: React.FC<SwitchButtonProps> = ({ callback, ...props }) => {
+const SwitchButton: FC<SwitchButtonProps> = ({
+  callback,
+  externalStyles,
+  children,
+  inputRef,
+  ...props
+}) => {
+  const styles = externalStyles || internalStyles;
+
   return (
     <div className={`${styles.switchButton}`} {...props}>
       <input
@@ -15,8 +25,9 @@ const SwitchButton: React.FC<SwitchButtonProps> = ({ callback, ...props }) => {
         name="switchTheme"
         type="checkbox"
         onChange={(e) => callback(e)}
+        ref={inputRef}
       />
-      <label htmlFor="switchTheme">{<IconMoon />}</label>
+      {children}
     </div>
   );
 };
