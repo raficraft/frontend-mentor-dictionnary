@@ -1,43 +1,45 @@
-import { createContext, useEffect, useState, useContext } from "react";
+import { createContext, useContext, useEffect, useState } from "react";
 
-interface ThemeContextType {
-  theme: "light" | "dark";
-  setTheme: (theme: "light" | "dark") => void;
+type Theme = "light" | "dark";
+
+interface ThemeContextProps {
+  theme: Theme;
+  toggleTheme: () => void;
 }
 
-export const ThemeContext = createContext<ThemeContextType | undefined>(
-  undefined
-);
+const ThemeContext = createContext<ThemeContextProps>({
+  theme: "light",
+  toggleTheme: () => {},
+});
 
-interface ThemeProviderProps {
-  children: React.ReactNode;
-}
+export const useTheme = () => useContext(ThemeContext);
 
-export default function ThemeProvider({ children }: ThemeProviderProps) {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
+export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
+  children,
+}) => {
+  const [theme, setTheme] = useState<Theme>("light");
 
   useEffect(() => {
-    const darkModeMediaQuery = window.matchMedia(
-      "(prefers-color-scheme: dark)"
-    );
-    setTheme(darkModeMediaQuery.matches ? "dark" : "light");
-    const handleChange = () =>
-      setTheme(darkModeMediaQuery.matches ? "dark" : "light");
-    darkModeMediaQuery.addEventListener("change", handleChange);
-    return () => darkModeMediaQuery.removeEventListener("change", handleChange);
+    const storedTheme = localStorage.getItem("theme");
+    if (storedTheme && ["light", "dark"].includes(storedTheme)) {
+      setTheme(storedTheme as Theme); // fix pour l'erreur "string n'est pas assignable à Theme"
+    }
   }, []);
 
-  return (
-    <ThemeContext.Provider value={{ theme, setTheme }}>
-      {children}
-    </ThemeContext.Provider>
-  );
-}
+  const toggleTheme = () => {
+    const newTheme: Theme = theme === "light" ? "dark" : "light";
+    setTheme(newTheme);
+    localStorage.setItem("theme", newTheme);
+  };
 
-export function useTheme() {
-  const context = useContext(ThemeContext);
-  if (!context) {
-    throw new Error("useTheme must be used within a ThemeProvider");
-  }
-  return context;
-}
+  const contextValue: ThemeContextProps = {
+    theme,
+    toggleTheme,
+  };
+
+  return (
+    <ThemeContext.Provider value={contextValue}>
+      {children}
+    </ThemeContext.Provider> // fix pour l'erreur "propriété 'children' n'existe pas"
+  );
+};

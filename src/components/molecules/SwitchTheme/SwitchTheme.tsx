@@ -3,10 +3,9 @@ import SwitchButton from "@/src/components/atoms/form/SwitchButton/SwitchButton"
 import { IconMoon, IconSun } from "@/src/assets/svg/icons";
 import styles from "./SwitchTheme.module.scss";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
+import { useTheme } from "@/src/js/context/useTheme";
 
 const SwitchTheme: React.FC = () => {
-  const [theme, setTheme] = useState<"light" | "dark">("light");
-
   const inputRef = useRef<HTMLInputElement>(null);
   const sunRef = useRef(null);
   const moonRef = useRef(null);
@@ -14,10 +13,7 @@ const SwitchTheme: React.FC = () => {
   let checked = inputRef.current?.checked || false;
   const svgRef = checked ? moonRef : sunRef;
 
-  const handleTheme = (e: React.ChangeEvent<HTMLInputElement>): void => {
-    const themes = e.target.checked ? "dark" : "light";
-    setTheme(themes);
-  };
+  const { theme, toggleTheme } = useTheme();
 
   useEffect(() => {
     document.body.dataset.theme = theme;
@@ -27,7 +23,7 @@ const SwitchTheme: React.FC = () => {
     <SwitchButton
       data-theme={theme}
       callback={(e) => {
-        handleTheme(e);
+        toggleTheme();
       }}
       externalStyles={styles}
       inputRef={inputRef}

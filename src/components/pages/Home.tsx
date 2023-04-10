@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import GetWord from "@/organisms/form/GetWord/GetWord";
 import AudioPlayer from "@/atoms/AudioPlayer/AudioPlayer";
+import styles from "./Home.module.scss";
 
 // La page contient deux composant qui consomme l'apelle api
 // Un composant avec le titre, la phonétique et le player audio du mot recherché
@@ -11,7 +12,7 @@ const HomePage = () => {
   return (
     <>
       <GetWord setData={setData} />
-      <main>
+      <main className={styles.main}>
         {data ? (
           <>
             <header>
