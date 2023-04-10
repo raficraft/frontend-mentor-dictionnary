@@ -1,32 +1,41 @@
 import Input from "@/atoms/form/input/Input";
-import styles from "./SearchWord.module.scss";
+import styles from "./GetWord.module.scss";
 import { IconMagnify } from "@/src/assets/svg/icons";
 import { useRef, FormEvent, useEffect, useState } from "react";
 import Error from "@/atoms/form/Error/Error";
+interface SearchWordProps {
+  setData: (data: any) => void; // ajouter le type de données correspondant aux données récupérées
+}
 
-const SearchWord: React.FC = () => {
+const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
   const [error, setError] = useState<string>("error");
   const inputRef = useRef<HTMLInputElement>(null);
+
+  //TODO : ecrire un services et la requête dans le dossier api
+  const fetchData = async (word: string) => {
+    const res = await fetch(
+      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
+    );
+    const json = await res.json();
+    setData(json[0]);
+  };
+
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const form = e.currentTarget;
-    console.log(form.elements);
-    console.log(form.checkValidity());
-    console.log(inputRef.current?.dataset.valueMissing);
-    console.log(inputRef.current?.validity.patternMismatch);
     if (form.checkValidity()) {
-      console.log("Submitting form");
       // Ajoutez ici le code pour soumettre le formulaire
+      inputRef.current && fetchData(inputRef.current.value);
     } else {
       setError(inputRef.current?.validationMessage || "");
     }
   };
 
-  const errorMessages = {
-    valueMissing: "Le champ est obligatoire",
-    tooShort: "Le doit contenir au moins 2 caractères",
-    patterMisMatch: "",
-  };
+  // const errorMessages = {
+  //   valueMissing: "Le champ est obligatoire",
+  //   tooShort: "Le doit contenir au moins 2 caractères",
+  //   patterMisMatch: "",
+  // };
 
   useEffect(() => {
     document.documentElement.lang = "en";
@@ -58,4 +67,4 @@ const SearchWord: React.FC = () => {
   );
 };
 
-export default SearchWord;
+export default GetWord;

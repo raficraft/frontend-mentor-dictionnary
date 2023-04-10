@@ -96,3 +96,22 @@ export function IconSun(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function IconPlay(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="21"
+      height="21"
+      fill="none"
+      viewBox="0 0 21 21"
+    >
+      <path
+        fill="#A445ED"
+        fill-rule="evenodd"
+        d="M0 0v21l21-10.5L0 0Z"
+        clip-rule="evenodd"
+      />
+    </svg>
+  );
+}

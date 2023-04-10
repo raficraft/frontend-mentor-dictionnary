@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef, ChangeEvent } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import SwitchButton from "@/src/components/atoms/form/SwitchButton/SwitchButton";
 import { IconMoon, IconSun } from "@/src/assets/svg/icons";
 import styles from "./SwitchTheme.module.scss";
@@ -6,10 +6,12 @@ import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 const SwitchTheme: React.FC = () => {
   const [theme, setTheme] = useState<"light" | "dark">("light");
+
   const inputRef = useRef<HTMLInputElement>(null);
-  let checked = inputRef.current?.checked || false;
   const sunRef = useRef(null);
   const moonRef = useRef(null);
+
+  let checked = inputRef.current?.checked || false;
   const svgRef = checked ? moonRef : sunRef;
 
   const handleTheme = (e: React.ChangeEvent<HTMLInputElement>): void => {
