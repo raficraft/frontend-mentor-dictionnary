@@ -9,6 +9,27 @@ import styles from "./Home.module.scss";
 const HomePage = () => {
   const [data, setData] = useState<any | undefined>(false);
 
+  const getAudio = (data) => {
+    console.log(data.phonetics.length);
+
+    if (data.phonetics.length === 0) {
+      console.log(null);
+      return <AudioPlayer src={null} />;
+    }
+
+    let src = null;
+
+    for (const iterator of data.phonetics) {
+      src = iterator.audio;
+    }
+
+    return <AudioPlayer src={src} />;
+  };
+
+  useEffect(() => {
+    console.log(data);
+  }, [data]);
+
   return (
     <>
       <GetWord setData={setData} />
@@ -20,20 +41,7 @@ const HomePage = () => {
                 <h1>{data.word}</h1>
                 <p>{data.phonetic}</p>
               </div>
-              <div>
-                <p>Player audio</p>
-                {Object.keys(data.phonetics).map((keys) => {
-                  console.log(data.phonetics[keys]);
-                  if (data.phonetics[keys].audio) {
-                    return (
-                      <AudioPlayer
-                        key={`audio-${keys}`}
-                        src={data.phonetics[keys].audio}
-                      />
-                    );
-                  }
-                })}
-              </div>
+              <div>{getAudio(data)}</div>
             </header>
             <section>
               {Object.keys(data.meanings).map((_, key) => {

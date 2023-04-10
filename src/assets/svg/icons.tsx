@@ -107,7 +107,7 @@ export function IconPlay(props: SVGProps<SVGSVGElement>) {
       viewBox="0 0 21 21"
     >
       <path
-        fill="#A445ED"
+        fill="currentColor"
         fill-rule="evenodd"
         d="M0 0v21l21-10.5L0 0Z"
         clip-rule="evenodd"

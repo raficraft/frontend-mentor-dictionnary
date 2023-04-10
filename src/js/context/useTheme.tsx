@@ -19,17 +19,9 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
 }) => {
   const [theme, setTheme] = useState<Theme>("light");
 
-  useEffect(() => {
-    const storedTheme = localStorage.getItem("theme");
-    if (storedTheme && ["light", "dark"].includes(storedTheme)) {
-      setTheme(storedTheme as Theme); // fix pour l'erreur "string n'est pas assignable à Theme"
-    }
-  }, []);
-
   const toggleTheme = () => {
     const newTheme: Theme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
-    localStorage.setItem("theme", newTheme);
   };
 
   const contextValue: ThemeContextProps = {
@@ -40,6 +32,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   return (
     <ThemeContext.Provider value={contextValue}>
       {children}
-    </ThemeContext.Provider> // fix pour l'erreur "propriété 'children' n'existe pas"
+    </ThemeContext.Provider>
   );
 };

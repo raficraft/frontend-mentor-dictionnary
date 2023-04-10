@@ -4,7 +4,7 @@
   width: 4.5rem;
   height: 4.5rem;
   border-radius: 100%;
-  background-color: #cca9e7;
+
   display: flex;
   justify-content: center;
   align-items: center;
@@ -26,7 +26,6 @@
   svg {
     display: flex;
     z-index: var(--z-index-200);
-    color: var(--clr-accent);
     width: 1.25rem;
     height: 1.25rem;
     margin-left: 4px;
@@ -34,5 +33,29 @@
 
   &:active {
     transform: scale(0.9);
+  }
+
+  &[data-theme="light"] {
+    background-color: #cca9e7;
+    svg {
+      color: var(--clr-accent);
+    }
+  }
+
+  &[data-theme="dark"] {
+    background-color: var(--clr-accent);
+    svg {
+      color: #cca9e7;
+    }
+  }
+
+  &:disabled {
+    background-color: rgb(180, 180, 180);
+    &:active {
+      transform: scale(1);
+    }
+    svg {
+      color: gray;
+    }
   }
 }
