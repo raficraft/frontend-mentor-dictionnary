@@ -1,4 +1,4 @@
-import React, { useEffect, useState, useRef } from "react";
+import React, { useEffect, useState, useRef, ChangeEvent } from "react";
 import SwitchButton from "@/src/components/atoms/form/SwitchButton/SwitchButton";
 import { IconMoon, IconSun } from "@/src/assets/svg/icons";
 import styles from "./SwitchTheme.module.scss";

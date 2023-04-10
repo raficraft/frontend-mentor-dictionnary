@@ -71,23 +71,23 @@ $spacing: 3px;
 .enter,
 .appear {
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateX(-100%);
 }
 
 .enterActive,
 .appearActive {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
   transition: opacity 0.3s, transform 0.3s;
 }
 
 .exit {
   opacity: 1;
-  transform: translateY(0);
+  transform: translateX(0);
 }
 
 .exitActive {
   opacity: 0;
-  transform: translateY(-100%);
+  transform: translateX(100%);
   transition: opacity 0.3s, transform 0.3s;
 }
