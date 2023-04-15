@@ -9,7 +9,7 @@ import styles from "./Home.module.scss";
 const HomePage = () => {
   const [data, setData] = useState<any | undefined>(false);
 
-  const getAudio = (data) => {
+  const getAudio = () => {
     console.log(data.phonetics.length);
 
     if (data.phonetics.length === 0) {
@@ -41,7 +41,7 @@ const HomePage = () => {
                 <h1>{data.word}</h1>
                 <p>{data.phonetic}</p>
               </div>
-              <div>{getAudio(data)}</div>
+              <div>{getAudio()}</div>
             </header>
             <section>
               {Object.keys(data.meanings).map((_, key) => {

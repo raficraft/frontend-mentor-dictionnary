@@ -1,13 +1,13 @@
 type ErrorProps = {
   variant?: string;
-  message: string;
+  errorMessage: string;
 };
 
-const Error: React.FC<ErrorProps> = ({ variant = "text", message }) => {
+const Error: React.FC<ErrorProps> = ({ variant = "text", errorMessage }) => {
   return (
     <>
       <p className={`text_warning`} data-variant={variant}>
-        {message}
+        {errorMessage}
       </p>
     </>
   );

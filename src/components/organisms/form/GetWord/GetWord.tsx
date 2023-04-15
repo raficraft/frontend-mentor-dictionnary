@@ -3,12 +3,13 @@ import styles from "./GetWord.module.scss";
 import { IconMagnify } from "@/src/assets/svg/icons";
 import { useRef, FormEvent, useEffect, useState } from "react";
 import Error from "@/atoms/form/Error/Error";
+import Field from "@/src/components/molecules/Field/Field";
 interface SearchWordProps {
   setData: (data: any) => void; // ajouter le type de données correspondant aux données récupérées
 }
 
 const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
-  const [error, setError] = useState<string>("error");
+  const [error, setError] = useState<string>("");
   const inputRef = useRef<HTMLInputElement>(null);
 
   //TODO : ecrire un services et la requête dans le dossier api
@@ -23,10 +24,13 @@ const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
     e.preventDefault();
     const form = e.currentTarget;
+    console.log("valid form");
+    console.log(form);
     if (form.checkValidity()) {
       // Ajoutez ici le code pour soumettre le formulaire
       inputRef.current && fetchData(inputRef.current.value);
     } else {
+      console.log("invalid");
       setError(inputRef.current?.validationMessage || "");
     }
   };
@@ -40,7 +44,7 @@ const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
   useEffect(() => {
     document.documentElement.lang = "en";
     inputRef.current?.focus();
-  }, []);
+  }, [error]);
 
   return (
     <div className={styles.searchWord}>
@@ -60,8 +64,16 @@ const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
               <IconMagnify />
             </span>
           </div>
-          <Error message={error} />
+          <Error errorMessage={error} />
         </div>
+        <Field
+          placeholder="test"
+          required
+          minLength={2}
+          maxLength={32}
+          pattern="[a-zA-Z]+"
+        />
+        <button type="submit">valid</button>
       </form>
     </div>
   );
