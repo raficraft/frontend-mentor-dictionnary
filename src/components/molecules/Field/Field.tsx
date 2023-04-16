@@ -10,7 +10,6 @@ import React, {
 import style from "./Field.module.scss";
 import Input from "../../atoms/form/input/Input";
 import Error from "../../atoms/form/Error/Error";
-import { debounce } from "@/src/js/utils/debounce/debounce";
 
 interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;

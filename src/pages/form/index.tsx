@@ -1,18 +1,29 @@
 import Head from "next/head";
 import { Inter } from "next/font/google";
-import { useRef } from "react";
 import Field from "@/src/components/molecules/Field/Field";
 import useForm from "@/src/js/hooks/useForm/useForm";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Form() {
-  const formRef = useRef(null);
-  const { handleSubmit, errors } = useForm();
+  const { validForm, validField, errors } = useForm({
+    fields: {
+      password: {
+        valueMissing: "required",
+        tooShort: "short",
+      },
+      email: {
+        valueMissing: "required",
+        tooShort: "short",
+      },
+    },
+  });
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    handleSubmit(event);
+    if (validForm(event)) {
+      console.log("yolo");
+    }
   };
 
   return (
@@ -28,9 +39,12 @@ export default function Form() {
         <Field
           name="email"
           type="email"
+          minLength={7}
           maxLength={32}
           required
           errorMessage={errors.email}
+          onInput={validField}
+          onFocus={validField}
         >
           <label htmlFor="email">Email</label>
         </Field>
@@ -47,6 +61,7 @@ export default function Form() {
         <Field
           name="adresse"
           type="text"
+          minLength={7}
           maxLength={32}
           required
           errorMessage={errors.adresse}
