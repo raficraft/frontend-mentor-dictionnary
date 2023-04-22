@@ -6,23 +6,22 @@ import useForm from "@/src/js/hooks/useForm/useForm";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Form() {
-  const { validForm, validField, errors } = useForm({
+  const { validateForm, validateField, errors, getData, reset } = useForm({
     fields: {
       password: {
-        valueMissing: "required",
-        tooShort: "short",
-      },
-      email: {
-        valueMissing: "required",
-        tooShort: "short",
+        minLength: {
+          value: 3,
+          message: "short",
+        },
       },
     },
   });
 
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if (validForm(event)) {
-      console.log("yolo");
+    if (validateForm(event)) {
+      const data = getData(event);
+      console.log(data);
     }
   };
 
@@ -41,10 +40,7 @@ export default function Form() {
           type="email"
           minLength={7}
           maxLength={32}
-          required
           errorMessage={errors.email}
-          onInput={validField}
-          onFocus={validField}
         >
           <label htmlFor="email">Email</label>
         </Field>
@@ -69,6 +65,9 @@ export default function Form() {
           <label htmlFor="adresse">adresse</label>
         </Field>
         <button type="submit">Valider</button>
+        <button type="reset" onClick={reset}>
+          Reset
+        </button>
       </form>
     </>
   );
