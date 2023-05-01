@@ -10,8 +10,16 @@ interface SearchWordProps {
 
 const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
   const { validateForm, validateField, errors, getFormData, reset } = useForm({
-    fields: {},
-    local: "fr",
+    fields: {
+      search: {
+        custom: {
+          message: "pouet",
+          customValidation: (value) => {
+            return value === "pouet";
+          },
+        },
+      },
+    },
   });
 
   //TODO : ecrire un services et la requête dans le dossier api

@@ -70,6 +70,11 @@ const useForm = ({ fields = {} }: UseFormOptions): UseFormReturn => {
     const element = event.target as T;
     const name = element.name!;
     const isValid = element.checkValidity();
+
+    if (!name) {
+      throw new Error("Le champ n'a pas de nom.");
+    }
+
     const previousError = errors[name];
 
     if (isValid && previousError) {
@@ -87,6 +92,12 @@ const useForm = ({ fields = {} }: UseFormOptions): UseFormReturn => {
         ...prevErrors,
         [name]: getErrorMessage(fields[name], element),
       }));
+    } else if (!isValid && !previousError) {
+      // Ajouter une nouvelle erreur
+      setErrors((prevErrors) => ({
+        ...prevErrors,
+        [name]: getErrorMessage(fields[name], element),
+      }));
     }
 
     return isValid;
@@ -97,6 +108,19 @@ const useForm = ({ fields = {} }: UseFormOptions): UseFormReturn => {
     element: T
   ): string | undefined => {
     const validityKeys = Object.keys(field) as FormValidity[];
+
+    if (Object.keys(field).length === 0) {
+      return element.validationMessage;
+    }
+
+    // Traiter d'abord les validations personnalisées
+    if (field.custom && field.custom.customValidation) {
+      const { message, customValidation } = field.custom;
+
+      if (!customValidation(element.value)) {
+        return message;
+      }
+    }
 
     for (const key of validityKeys) {
       let validityLabel;
@@ -136,7 +160,7 @@ const useForm = ({ fields = {} }: UseFormOptions): UseFormReturn => {
       }
     }
 
-    return element.validationMessage;
+    return undefined;
   };
 
   const reset = () => {
