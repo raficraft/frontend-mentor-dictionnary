@@ -6,11 +6,10 @@ import useForm from "@/src/js/hooks/useForm/useForm";
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Form() {
-  const { validateForm, validateField, errors, getData, reset } = useForm({
+  const { validateForm, validateField, errors, getFormData, reset } = useForm({
     fields: {
       password: {
         minLength: {
-          value: 3,
           message: "short",
         },
       },
@@ -20,7 +19,7 @@ export default function Form() {
   const onSubmit = (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
     if (validateForm(event)) {
-      const data = getData(event);
+      const data = getFormData(event);
       console.log(data);
     }
   };
@@ -40,7 +39,8 @@ export default function Form() {
           type="email"
           minLength={7}
           maxLength={32}
-          errorMessage={errors.email}
+          error={errors.email}
+          required
         >
           <label htmlFor="email">Email</label>
         </Field>
@@ -50,7 +50,7 @@ export default function Form() {
           minLength={7}
           maxLength={32}
           required
-          errorMessage={errors.password}
+          error={errors.password}
         >
           <label htmlFor="password">Password</label>
         </Field>
@@ -60,7 +60,7 @@ export default function Form() {
           minLength={7}
           maxLength={32}
           required
-          errorMessage={errors.adresse}
+          error={errors.adresse}
         >
           <label htmlFor="adresse">adresse</label>
         </Field>

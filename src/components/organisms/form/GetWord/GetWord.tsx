@@ -1,16 +1,18 @@
-import Input from "@/atoms/form/input/Input";
 import styles from "./GetWord.module.scss";
 import { IconMagnify } from "@/src/assets/svg/icons";
 import { useRef, FormEvent, useEffect, useState } from "react";
-import Error from "@/atoms/form/Error/Error";
 import Field from "@/src/components/molecules/Field/Field";
+import useForm from "@/src/js/hooks/useForm/useForm";
+import { debounce } from "@/src/js/utils/debounce/debounce";
 interface SearchWordProps {
   setData: (data: any) => void; // ajouter le type de données correspondant aux données récupérées
 }
 
 const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
-  const [error, setError] = useState<string>("");
-  const inputRef = useRef<HTMLInputElement>(null);
+  const { validateForm, validateField, errors, getFormData, reset } = useForm({
+    fields: {},
+    local: "fr",
+  });
 
   //TODO : ecrire un services et la requête dans le dossier api
   const fetchData = async (word: string) => {
@@ -18,62 +20,51 @@ const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
       `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
     );
     const json = await res.json();
+    console.log(json);
     setData(json[0]);
   };
 
-  const handleSubmit = (e: FormEvent<HTMLFormElement>): void => {
-    e.preventDefault();
-    const form = e.currentTarget;
-    console.log("valid form");
-    console.log(form);
-    if (form.checkValidity()) {
-      // Ajoutez ici le code pour soumettre le formulaire
-      inputRef.current && fetchData(inputRef.current.value);
+  const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
+    event.preventDefault();
+    if (validateForm(event)) {
+      const dataForm = getFormData(event);
+      fetchData(dataForm.search);
     } else {
-      console.log("invalid");
-      setError(inputRef.current?.validationMessage || "");
+      console.log("sub failed", errors);
     }
   };
 
-  // const errorMessages = {
-  //   valueMissing: "Le champ est obligatoire",
-  //   tooShort: "Le doit contenir au moins 2 caractères",
-  //   patterMisMatch: "",
-  // };
-
-  useEffect(() => {
-    document.documentElement.lang = "en";
-    inputRef.current?.focus();
-  }, [error]);
+  const handleChange = debounce((event) => {
+    event.preventDefault();
+    if (validateField(event)) {
+      const searchValue = event.target.value;
+      if (searchValue) {
+        fetchData(event.target.value);
+      } else {
+        setData(false);
+      }
+    }
+  }, 300);
 
   return (
     <div className={styles.searchWord}>
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
-        <div className={styles.bloc}>
-          <div className={styles.blocInput}>
-            <Input
-              type="search"
-              placeholder="Search a word"
-              inputRef={inputRef}
-              minLength={2}
-              maxLength={32}
-              pattern="[a-zA-Z]+"
-              required
-            />
-            <span className={styles.svg}>
+        <Field
+          type="search"
+          placeholder="test"
+          name="search"
+          required
+          minLength={4}
+          maxLength={32}
+          pattern="^[a-zA-ZÀ-ÿ ]{1,32}$"
+          onChange={handleChange}
+          error={errors.search}
+          svg={
+            <span className={styles.icon}>
               <IconMagnify />
             </span>
-          </div>
-          <Error errorMessage={error} />
-        </div>
-        <Field
-          placeholder="test"
-          required
-          minLength={2}
-          maxLength={32}
-          pattern="[a-zA-Z]+"
+          }
         />
-        <button type="submit">valid</button>
       </form>
     </div>
   );

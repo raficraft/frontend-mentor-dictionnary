@@ -108,9 +108,9 @@ export function IconPlay(props: SVGProps<SVGSVGElement>) {
     >
       <path
         fill="currentColor"
-        fill-rule="evenodd"
+        fillRule="evenodd"
         d="M0 0v21l21-10.5L0 0Z"
-        clip-rule="evenodd"
+        clipRule="evenodd"
       />
     </svg>
   );

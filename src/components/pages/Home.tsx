@@ -13,17 +13,12 @@ const HomePage = () => {
     console.log(data.phonetics.length);
 
     if (data.phonetics.length === 0) {
-      console.log(null);
       return <AudioPlayer src={null} />;
+    } else {
+      const valuesArray = Object.values(data.phonetic);
+      const src: string = valuesArray[valuesArray.length - 1] as string;
+      return <AudioPlayer src={src} />;
     }
-
-    let src = null;
-
-    for (const iterator of data.phonetics) {
-      src = iterator.audio;
-    }
-
-    return <AudioPlayer src={src} />;
   };
 
   useEffect(() => {

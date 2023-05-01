@@ -7,31 +7,31 @@ import React, {
   Ref,
   InputHTMLAttributes,
 } from "react";
-import style from "./Field.module.scss";
+import styles from "./Field.module.scss";
 import Input from "../../atoms/form/input/Input";
 import Error from "../../atoms/form/Error/Error";
 
 interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
   reverse?: boolean;
-  errorMessage?: string;
+  error?: string;
   svg?: ReactNode;
 }
 
 const Field = forwardRef(
   (
-    { children, reverse, errorMessage, svg, ...rest }: FieldProps,
+    { children, reverse, error, svg, ...rest }: FieldProps,
     ref: Ref<HTMLInputElement>
   ) => {
     return (
-      <div>
-        <div>
+      <div className={styles.bloc}>
+        <div className={styles.blocInput}>
           {!reverse && children ? children : null}
           <Input ref={ref} {...rest}></Input>
-          {svg ? <span>{svg}</span> : null}
+          {svg ? <span className={styles.icon}>{svg}</span> : null}
           {reverse && children ? children : null}
         </div>
-        {errorMessage ? <Error errorMessage={errorMessage} /> : null}
+        {<Error errorMessage={error} />}
       </div>
     );
   }

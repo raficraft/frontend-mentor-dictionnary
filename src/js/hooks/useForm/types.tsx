@@ -7,36 +7,41 @@ export type FormValidity =
   | "min"
   | "max"
   | "step"
-  | "custom"
-  | "valid";
+  | "custom";
 
 export type FormElementType =
   | HTMLInputElement
   | HTMLSelectElement
   | HTMLTextAreaElement;
 
-export type FieldErrorMessages = Partial<
-  Record<
-    FormValidity,
-    { message: string; callback?: Function; value?: string | RegExp }
-  >
->;
+export type FieldErrorMessages = {
+  [key: string]: {
+    message: string;
+    customValidation?: (value: string) => boolean;
+    callback?: () => void;
+  };
+};
 
-export type Fields = Partial<Record<string, FieldErrorMessages>>;
+type Fields = Partial<Record<string, FieldErrorMessages>>;
 
 export type FormErrors = Partial<Record<string, string>>;
 
 export type UseFormOptions = {
+  local?: string;
   fields: Fields;
 };
 
+export type FormValues = Record<string, string | Blob>;
+
 export type UseFormReturn = {
   validateForm: (event: React.FormEvent<HTMLFormElement>) => boolean;
-  getData: (event: React.FormEvent<HTMLFormElement>) => void;
+  getFormData: (
+    event: React.FormEvent<HTMLFormElement>
+  ) => Record<string, string>;
   validateField: <T extends FormElementType>(
     event: React.FormEvent<T>,
     showError?: boolean
   ) => boolean;
-  errors: FormErrors;
-  reset: any;
+  errors: Record<string, string | undefined>;
+  reset: () => void;
 };
