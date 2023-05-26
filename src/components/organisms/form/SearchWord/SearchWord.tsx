@@ -6,10 +6,10 @@ import useForm from "@/src/js/hooks/useForm/useForm";
 import { debounce } from "@/src/js/utils/debounce/debounce";
 
 interface SearchWordProps {
-  setData: (data: any) => void; // ajouter le type de données correspondant aux données récupérées
+  callApi: (data: string) => void;
 }
 
-const SearchWord: React.FC<SearchWordProps> = ({ setData }) => {
+const SearchWord: React.FC<SearchWordProps> = ({ callApi }) => {
   const { validateForm, validateField, errors, getFormData } = useForm({
     fields: {
       search: {
@@ -23,23 +23,11 @@ const SearchWord: React.FC<SearchWordProps> = ({ setData }) => {
     },
   });
 
-  //TODO : ecrire une requête dans le dossier api
-  const fetchData = async (word: string) => {
-    try {
-      const response = await fetch(`/api/dictionary?word=${word}`);
-      const data: any = await response.json();
-
-      setData(data[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
     event.preventDefault();
     if (validateForm(event)) {
       const dataForm = getFormData(event);
-      fetchData(dataForm.search);
+      callApi(dataForm.search);
     } else {
       console.log("sub failed", errors);
     }
@@ -50,9 +38,7 @@ const SearchWord: React.FC<SearchWordProps> = ({ setData }) => {
     if (validateField(event)) {
       const searchValue = event.target.value;
       if (searchValue) {
-        fetchData(event.target.value);
-      } else {
-        setData(false);
+        callApi(event.target.value);
       }
     }
   }, 300);
