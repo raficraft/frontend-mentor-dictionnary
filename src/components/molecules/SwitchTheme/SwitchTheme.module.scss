@@ -14,7 +14,7 @@ $spacing: 3px;
   align-items: center;
   width: $width;
   height: $height;
-  background-color: var(--clr-primary-500);
+  background-color: var(--dark-to-accent);
   border-radius: 99999px;
   cursor: pointer;
   content: " ";
@@ -35,7 +35,7 @@ $spacing: 3px;
 
   &:checked::before {
     transform: translateX(calc(200% - ($height / 2) + $spacing));
-    background-color: var(--clr-accent);
+    background-color: white;
   }
 }
 

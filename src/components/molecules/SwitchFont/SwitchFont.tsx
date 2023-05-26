@@ -1,6 +1,6 @@
 import Droplist from "@/atoms/DropList/DropList";
 
-const config = ["Sans-serif", "Serif", "Mono"];
+const config = ["Sans-serif", "Serif", "Monospace"];
 
 const changeFont = (font: string) => {
   const root = document.querySelector(":root");

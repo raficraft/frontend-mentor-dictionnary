@@ -28,8 +28,7 @@ const Droplist: React.FC<DropListProps> = ({
   callback,
 }: DropListProps): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [show, setShow] = useClickOutside(false);
-  const refOutsideClick = useRef<HTMLDivElement>(null);
+  const [show, setShow, refOutsideClick] = useClickOutside(false);
 
   // Dynamical Refs
   const optionsRefs = useRef<Array<RefObject<HTMLButtonElement>>>(
@@ -42,19 +41,24 @@ const Droplist: React.FC<DropListProps> = ({
       case "Enter":
         setShow(!show);
         break;
+
       case "Escape":
         setShow(false);
         break;
+
       case "ArrowUp":
       case "ArrowDown":
         !show && setShow(true);
         break;
       case "Tab":
-        if (show) {
-          const firstElement = optionsRefs.current[0].current;
-          firstElement ? firstElement.focus() : null;
-        }
+        // if (show) {
+        //   console.log(optionsRefs);
+        //   const firstElement = optionsRefs.current[0].current;
+        //   firstElement ? firstElement.focus() : null;
+        // }
+
         break;
+
       default:
         break;
     }

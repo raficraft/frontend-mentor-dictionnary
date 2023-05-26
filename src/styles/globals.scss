@@ -6,6 +6,7 @@
 :root {
   --clr-accent: rgb(164, 69, 237);
   --clr-warning: rgb(255, 82, 82);
+  --clr-light-gray: rgb(117, 117, 117);
 
   --clr-primary-100: rgba(5, 5, 5);
   --clr-primary-200: rgba(5, 31, 31);
@@ -34,12 +35,12 @@
   // --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
   //   "Roboto Mono", "Oxygen Mono", "Ubuntu Monospace", "Source Code Pro",
   //   "Fira Mono", "Droid Sans Mono", "Courier New", monospace;
-  --font-family: "Inter", sans-serif, "Lora", serif, "Inconsolata", monospace;
-
+  --font-family: sans-serif, "Inter", "Lora", serif, "Inconsolata", monospace;
   [data-theme="light"] {
     --background: white;
     --color: var(--clr-primary-300);
     --shadow: 0px 4px 4px 0px rgba(0, 0, 0, 0.25);
+    --dark-to-accent: var(--clr-primary-500);
 
     // DropList Color
     --background-dropList: var(--clr-primary-800);
@@ -50,6 +51,7 @@
     --background: var(--clr-primary-100);
     --color: var(--clr-primary-800);
     --shadow: 0px 5px 30px 0px rgba(164, 69, 237, 1);
+    --dark-to-accent: var(--clr-accent);
 
     // DropList Color
     --background-dropList: var(--clr-primary-400);
@@ -80,6 +82,11 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
+  line-height: 1.3;
+}
+
+p {
+  color: var(--color);
 }
 
 #__next {
@@ -87,6 +94,10 @@ body {
   max-width: var(--root-size);
   width: 100%;
   height: inherit;
+}
+
+main {
+  padding-bottom: 8rem;
 }
 
 .rootContainer {
@@ -111,10 +122,6 @@ form {
   background-color: var(--background);
 }
 
-.text_warning {
-  color: var(--clr-warning);
-}
-
 /* clears the ‘X’ from Internet Explorer */
 input[type="search"]::-ms-clear {
   display: none;
@@ -132,4 +139,47 @@ input[type="search"]::-webkit-search-cancel-button,
 input[type="search"]::-webkit-search-results-button,
 input[type="search"]::-webkit-search-results-decoration {
   display: none;
+}
+
+h1 {
+  font-weight: 700;
+}
+
+.font_xl {
+  font-size: var(--font-size-xl);
+  line-height: 1.2;
+}
+.font_lg {
+  font-size: var(--font-size-lg);
+  line-height: 1.25;
+}
+.font_m {
+  font-size: var(--font-size-m);
+  line-height: 1.25;
+}
+.font_s {
+  font-size: var(--font-size-s);
+}
+.font_xs {
+  font-size: var(--font-size-xs);
+}
+
+.text_accent {
+  color: var(--clr-accent);
+}
+
+.text_gray {
+  color: var(--clr-light-gray);
+}
+
+.text_warning {
+  color: var(--clr-warning);
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.italic {
+  font-style: italic;
 }

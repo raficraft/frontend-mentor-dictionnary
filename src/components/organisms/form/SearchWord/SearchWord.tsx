@@ -1,35 +1,38 @@
-import styles from "./GetWord.module.scss";
+import styles from "./SearchWord.module.scss";
 import { IconMagnify } from "@/src/assets/svg/icons";
 import { useRef, FormEvent, useEffect, useState } from "react";
 import Field from "@/src/components/molecules/Field/Field";
 import useForm from "@/src/js/hooks/useForm/useForm";
 import { debounce } from "@/src/js/utils/debounce/debounce";
+
 interface SearchWordProps {
   setData: (data: any) => void; // ajouter le type de données correspondant aux données récupérées
 }
 
-const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
-  const { validateForm, validateField, errors, getFormData, reset } = useForm({
+const SearchWord: React.FC<SearchWordProps> = ({ setData }) => {
+  const { validateForm, validateField, errors, getFormData } = useForm({
     fields: {
       search: {
-        custom: {
-          message: "pouet",
-          customValidation: (value) => {
-            return value === "pouet";
-          },
+        required: {
+          message: "Champ requis",
+        },
+        pattern: {
+          message: "Champ requis",
         },
       },
     },
   });
 
-  //TODO : ecrire un services et la requête dans le dossier api
+  //TODO : ecrire une requête dans le dossier api
   const fetchData = async (word: string) => {
-    const res = await fetch(
-      `https://api.dictionaryapi.dev/api/v2/entries/en/${word}`
-    );
-    const json = await res.json();
-    console.log(json);
-    setData(json[0]);
+    try {
+      const response = await fetch(`/api/dictionary?word=${word}`);
+      const data: any = await response.json();
+
+      setData(data[0]);
+    } catch (error) {
+      console.error(error);
+    }
   };
 
   const handleSubmit = (event: FormEvent<HTMLFormElement>): void => {
@@ -55,11 +58,11 @@ const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
   }, 300);
 
   return (
-    <div className={styles.searchWord}>
+    <div>
       <form className={styles.form} onSubmit={handleSubmit} noValidate>
         <Field
           type="search"
-          placeholder="test"
+          placeholder="Search a word"
           name="search"
           required
           minLength={4}
@@ -78,4 +81,4 @@ const GetWord: React.FC<SearchWordProps> = ({ setData }) => {
   );
 };
 
-export default GetWord;
+export default SearchWord;
