@@ -10,16 +10,21 @@ const inter = Inter({ subsets: ["latin"] });
 console.log(inter);
 
 export default function Home() {
-  const [result, setResult] = useState<any | undefined>(false);
+  const [result, setResult] = useState<any | undefined>([]);
+  const [error, setError] = useState<string>("");
 
   const fetchData = async (word: string) => {
     try {
       const response = await fetch(`/api/dictionary?word=${word}`);
       const data: any = await response.json();
-
-      setResult(data[0]);
-    } catch (error) {
-      console.error(error);
+      if (data.error) {
+        throw new Error("No Definitions found");
+      } else {
+        setResult(data[0]);
+        setError("");
+      }
+    } catch (error: any) {
+      setError(error.toString());
     }
   };
 
@@ -47,7 +52,8 @@ export default function Home() {
       {/* <HomePage /> */}
       <SearchWord callApi={fetchData} />
       <main className={styles.main}>
-        {result && !result.tiltle ? (
+        {error && <p>{error}</p>}
+        {result.word ? (
           <>
             <header>
               <div className={styles.title}>
@@ -98,9 +104,7 @@ export default function Home() {
               );
             })}
           </>
-        ) : (
-          <>Oups aucun résultat</>
-        )}
+        ) : null}
       </main>
     </>
   );

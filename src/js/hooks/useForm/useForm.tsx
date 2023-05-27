@@ -155,7 +155,6 @@ const useForm = ({ fields = {} }: UseFormOptions): UseFormReturn => {
         const errorMessage = field[key]?.message || element.validationMessage;
         const callback = field[key]?.callback;
         if (callback) callback();
-        console.log(errorMessage);
         return errorMessage;
       }
     }

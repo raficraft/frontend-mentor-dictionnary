@@ -1,18 +1,11 @@
 type ErrorProps = {
-  variant?: string;
   errorMessage?: string;
 };
 
-const Error: React.FC<ErrorProps> = ({ variant = "text", errorMessage }) => {
+const Error: React.FC<ErrorProps> = ({ errorMessage }) => {
   return (
     <>
-      <p
-        className={`text_warning`}
-        data-variant={variant}
-        style={{ minHeight: "2rem" }}
-      >
-        {errorMessage}
-      </p>
+      <p className={`text_warning`}>{errorMessage}</p>
     </>
   );
 };
