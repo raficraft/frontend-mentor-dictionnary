@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import SwitchButton from "@/src/components/atoms/form/SwitchButton/SwitchButton";
+import { SwitchButton } from "@/atoms/index";
 import { IconMoon, IconSun } from "@/src/assets/svg/icons";
 import styles from "./SwitchTheme.module.scss";
 import { SwitchTransition, CSSTransition } from "react-transition-group";

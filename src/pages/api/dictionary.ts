@@ -7,7 +7,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
     const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
     const data = await response.json();
 
-
     const noDefinitionsFound = data[0].title || false
 
     if (response.ok && !noDefinitionsFound) {
@@ -18,7 +17,6 @@ export default async function handler(req: NextApiRequest, res: NextApiResponse)
       throw new Error("Une erreur s'est produite lors de l'appel à l'API.");
     }
   } catch (error) {
-    console.error(error);
     res.status(500).json({ error: "Une erreur s'est produite lors de l'appel à l'API." });
   }
 }

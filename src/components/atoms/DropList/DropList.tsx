@@ -22,7 +22,7 @@ interface DropListProps {
   svg?: SVGProps;
 }
 
-const Droplist: React.FC<DropListProps> = ({
+const DropList: React.FC<DropListProps> = ({
   options = [],
   tabIndex = 1,
   callback,
@@ -113,4 +113,4 @@ const Droplist: React.FC<DropListProps> = ({
   );
 };
 
-export default Droplist;
+export default DropList;

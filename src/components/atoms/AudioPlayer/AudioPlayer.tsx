@@ -1,7 +1,6 @@
 import { IconPlay } from "@/src/assets/svg/icons";
 import styles from "./AudioPlayer.module.scss";
 import { useState, useRef } from "react";
-import { useTheme } from "@/src/js/context/useTheme";
 
 type AudioPlayerProps = {
   src: string | null;
@@ -10,8 +9,6 @@ type AudioPlayerProps = {
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
   const [playing, setPlaying] = useState(false);
   const audioRef = useRef<HTMLAudioElement>(null);
-
-  const { theme } = useTheme();
 
   const togglePlay = () => {
     const audio = audioRef.current;
@@ -44,7 +41,6 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
         onClick={togglePlay}
         type="button"
         className={styles.btn}
-        data-theme={theme}
         {...(src ? {} : { disabled: true })} // utilisez `undefined` pour désactiver la propriété `disabled` si `src` est truthy
       >
         {<IconPlay />}

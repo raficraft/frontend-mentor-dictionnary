@@ -55,7 +55,7 @@ export default function Home() {
         {error && <p>{error}</p>}
         {result.word ? (
           <>
-            <header>
+            <header className={styles.main_header}>
               <div className={styles.title}>
                 <h1 className="font_xl">{result.word}</h1>
                 <p className="font_lg text_accent">{result.phonetic}</p>
@@ -64,21 +64,14 @@ export default function Home() {
             </header>
             {Object.keys(result.meanings).map((_, key) => {
               return (
-                <React.Fragment key={`meaning-${key}`}>
-                  <div className={styles.separator}>
-                    <p className="bold font_lg italic">
+                <section key={`meaning-${key}`} className={styles.meanings}>
+                  <header className={styles.separator}>
+                    <h2 className="bold font_lg italic">
                       {result.meanings[key].partOfSpeech}
-                    </p>
-                  </div>
-                  <section className={styles.meanings}>
-                    <h3
-                      className="text_gray"
-                      style={{
-                        fontWeight: "lighter",
-                      }}
-                    >
-                      Meaning
-                    </h3>
+                    </h2>
+                  </header>
+                  <article>
+                    <p className="text_gray">Meaning</p>
                     <ul className={styles.list}>
                       {Object.keys(result.meanings[key].definitions).map(
                         (_, keys) => {
@@ -93,16 +86,19 @@ export default function Home() {
                         }
                       )}
                     </ul>
-                    <span className={styles.footer}>
-                      <p>Synonyms</p>
-                      <p className="text_accent bold">
-                        {result.meanings[key].synonyms[0]}
-                      </p>
-                    </span>
-                  </section>
-                </React.Fragment>
+                  </article>
+                  <footer className={styles.footer}>
+                    <p>Synonyms</p>
+                    <p className="text_accent bold">
+                      {result.meanings[key].synonyms[0]}
+                    </p>
+                  </footer>
+                </section>
               );
             })}
+            <footer>
+              <p>Source {result.sourceUrls}</p>
+            </footer>
           </>
         ) : null}
       </main>

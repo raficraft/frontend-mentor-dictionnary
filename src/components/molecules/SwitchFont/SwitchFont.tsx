@@ -1,4 +1,4 @@
-import Droplist from "@/atoms/DropList/DropList";
+import { DropList } from "@/atoms/index";
 
 const config = ["Sans-serif", "Serif", "Monospace"];
 
@@ -9,7 +9,7 @@ const changeFont = (font: string) => {
 
 const SwitchFont = () => {
   return (
-    <Droplist
+    <DropList
       options={config}
       callback={(font) => {
         changeFont(font);

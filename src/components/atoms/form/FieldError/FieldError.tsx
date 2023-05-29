@@ -2,7 +2,7 @@ type ErrorProps = {
   errorMessage?: string;
 };
 
-const Error: React.FC<ErrorProps> = ({ errorMessage }) => {
+const FieldError: React.FC<ErrorProps> = ({ errorMessage }) => {
   return (
     <>
       <p className={`text_warning`}>{errorMessage}</p>
@@ -10,4 +10,4 @@ const Error: React.FC<ErrorProps> = ({ errorMessage }) => {
   );
 };
 
-export default Error;
+export default FieldError;

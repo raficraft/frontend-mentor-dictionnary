@@ -1,53 +1,26 @@
+@import "@css/mixin/mixin.scss";
+
 .btn {
+  position: relative;
+  @include flex(row, center, center);
+  @include size(4.5rem);
+  @include circle();
   background: none;
   border: none;
-  width: 4.5rem;
-  height: 4.5rem;
-  border-radius: 100%;
-
-  display: flex;
-  justify-content: center;
-  align-items: center;
   cursor: pointer;
-  position: relative;
-
   transition: 0.3s;
-  &:before {
-    position: absolute;
-    width: 4.5rem;
-    height: 4.5rem;
-    border-radius: 100%;
-    content: " ";
-    display: block;
-    background-color: rgba(255, 255, 255, 0);
-    backdrop-filter: blur(10px);
-    z-index: var(--z-index-100);
-  }
+  background-color: var(--clr-accent);
+
   svg {
     display: flex;
+    @include size(1.25rem);
     z-index: var(--z-index-200);
-    width: 1.25rem;
-    height: 1.25rem;
     margin-left: 4px;
+    color: white;
   }
 
   &:active {
     transform: scale(0.9);
-  }
-
-  &[data-theme="light"] {
-    background-color: #cca9e7;
-    box-shadow: 0 4px 4px 0 rgba(0, 0, 0, 0.25);
-    svg {
-      color: var(--clr-accent);
-    }
-  }
-
-  &[data-theme="dark"] {
-    background-color: var(--clr-accent);
-    svg {
-      color: #cca9e7;
-    }
   }
 
   &:disabled {

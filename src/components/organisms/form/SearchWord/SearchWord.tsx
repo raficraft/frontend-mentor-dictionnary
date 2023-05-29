@@ -1,7 +1,7 @@
 import styles from "./SearchWord.module.scss";
 import { IconMagnify } from "@/src/assets/svg/icons";
-import { useRef, FormEvent, useEffect, useState } from "react";
-import Field from "@/src/components/molecules/Field/Field";
+import { FormEvent } from "react";
+import { Field } from "@/molecules/index";
 import useForm from "@/src/js/hooks/useForm/useForm";
 import { debounce } from "@/src/js/utils/debounce/debounce";
 
