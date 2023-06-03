@@ -12,4 +12,6 @@ const Input = forwardRef(function Input(
   return <input ref={inputRef} {...rest} className={styles.input} />;
 });
 
+Input.displayName = "Input";
+
 export default Input;

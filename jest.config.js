@@ -25,7 +25,9 @@ const customJestConfig = {
   collectCoverage: true,
   collectCoverageFrom: [
     "!** /node_modules/ ** ",
-    "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/src/components/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/src/js/**/*.{js,jsx,ts,tsx}",
+    "<rootDir>/src/pages/**/*.{js,jsx,ts,tsx}",
   ],
   coverageDirectory: "coverage",
   coverageReporters: ["text", "cobertura"],

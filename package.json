@@ -7,7 +7,7 @@
     "build": "next build",
     "start": "next start",
     "lint": "next lint",
-    "test": "jest --config ./jest.config.js --passWithNoTests"
+    "test": "jest --config ./jest.config.js --passWithNoTests --watchAll --detectOpenHandles"
   },
   "dependencies": {
     "@types/node": "18.15.11",
