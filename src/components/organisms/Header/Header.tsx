@@ -3,7 +3,7 @@ import styles from "./Header.module.scss";
 import SwitchTheme from "@/molecules/SwitchTheme/SwitchTheme";
 import SwitchFont from "@/molecules/SwitchFont/SwitchFont";
 
-export const Header = () => {
+const Header = () => {
   return (
     <header className={`rootContainer ${styles.header}`}>
       <IconDictionary />
@@ -14,3 +14,5 @@ export const Header = () => {
     </header>
   );
 };
+
+export default Header;

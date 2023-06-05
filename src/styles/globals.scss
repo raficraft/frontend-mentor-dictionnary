@@ -1,6 +1,8 @@
 //font-family: 'Lora', serif;
 // font-family: 'Inter', sans-serif;
 // font-family: 'Inconsolata', monospace;
+@use "@css/components/atoms/form/input.scss";
+@use "@css/components/atoms/text/text.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Inter&family=Lora&display=swap");
 
 :root {
@@ -65,10 +67,6 @@
   box-sizing: border-box;
 }
 
-label {
-  cursor: pointer;
-}
-
 html {
   height: 100%;
 }
@@ -83,10 +81,6 @@ body {
   align-items: center;
   justify-content: flex-start;
   line-height: 1.3;
-}
-
-p {
-  color: var(--color);
 }
 
 #__next {
@@ -106,6 +100,10 @@ main {
   width: 100%;
 }
 
+label {
+  cursor: pointer;
+}
+
 .sr-only {
   position: absolute;
   width: 1px;
@@ -116,75 +114,4 @@ main {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-form {
-  background-color: var(--background);
-}
-
-/* clears the ‘X’ from Internet Explorer */
-input[type="search"]::-ms-clear {
-  display: none;
-  width: 0;
-  height: 0;
-}
-input[type="search"]::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
-/* clears the ‘X’ from Chrome */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  display: none;
-}
-
-h1 {
-  font-weight: 700;
-}
-
-.font_xl {
-  font-size: var(--font-size-xl);
-  line-height: 1.2;
-}
-.font_lg {
-  font-size: var(--font-size-lg);
-  line-height: 1.25;
-}
-.font_m {
-  font-size: var(--font-size-m);
-  line-height: 1.25;
-}
-.font_s {
-  font-size: var(--font-size-s);
-}
-.font_xs {
-  font-size: var(--font-size-xs);
-}
-
-.text_accent {
-  color: var(--clr-accent);
-}
-
-.text_gray {
-  color: var(--clr-light-gray);
-}
-
-.text_warning {
-  color: var(--clr-warning);
-  min-height: 2rem;
-}
-
-.text_warning:empty {
-  min-height: 2rem;
-}
-
-.bold {
-  font-weight: 900;
-}
-
-.italic {
-  font-style: italic;
 }

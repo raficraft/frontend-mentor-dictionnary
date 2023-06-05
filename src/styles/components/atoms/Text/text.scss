@@ -1,0 +1,42 @@
+.text_xl {
+  font-size: var(--font-size-xl);
+  line-height: 1.2;
+}
+.text_lg {
+  font-size: var(--font-size-lg);
+  line-height: 1.25;
+}
+.text_m {
+  font-size: var(--font-size-m);
+  line-height: 1.25;
+}
+.text_s {
+  font-size: var(--font-size-s);
+}
+.text_xs {
+  font-size: var(--font-size-xs);
+}
+
+.text_accent {
+  color: var(--clr-accent);
+}
+
+.text_gray {
+  color: var(--clr-light-gray);
+}
+
+.text_warning {
+  color: var(--clr-warning);
+}
+
+.text_warning:empty {
+  min-height: 2rem;
+}
+
+.bold {
+  font-weight: 900;
+}
+
+.italic {
+  font-style: italic;
+}

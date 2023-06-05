@@ -41,7 +41,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
         onClick={togglePlay}
         type="button"
         className={styles.btn}
-        {...(src ? {} : { disabled: true })} // utilisez `undefined` pour désactiver la propriété `disabled` si `src` est truthy
+        {...(src ? {} : { disabled: true })}
       >
         {<IconPlay />}
       </button>

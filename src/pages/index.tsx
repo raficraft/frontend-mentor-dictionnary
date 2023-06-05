@@ -1,13 +1,11 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { Inter } from "next/font/google";
-import SearchWord from "@/components/organisms/form/SearchWord/SearchWord";
-import AudioPlayer from "@/components/atoms/AudioPlayer/AudioPlayer";
-import styles from "../styles/pages/Home.module.scss";
+import { Text, AudioPlayer } from "@/atoms/index";
+import { SearchWord } from "@/organisms/index";
+import styles from "@/styles/pages/Home.module.scss";
 
 const inter = Inter({ subsets: ["latin"] });
-
-console.log(inter);
 
 export default function Home() {
   const [result, setResult] = useState<any | undefined>([]);
@@ -38,9 +36,6 @@ export default function Home() {
     }
   };
 
-  useEffect(() => {
-    console.log(result);
-  }, [result]);
   return (
     <>
       <Head>
@@ -49,7 +44,6 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <HomePage /> */}
       <SearchWord callApi={fetchData} />
       <main className={styles.main}>
         {error && <p>{error}</p>}
@@ -57,8 +51,12 @@ export default function Home() {
           <>
             <header className={styles.main_header}>
               <div className={styles.title}>
-                <h1 className="font_xl">{result.word}</h1>
-                <p className="font_lg text_accent">{result.phonetic}</p>
+                <Text tag="h1" className="text_xl">
+                  {result.word}
+                </Text>
+                <Text tag="p" className="text_lg text_accent">
+                  {result.phonetic}
+                </Text>
               </div>
               <div>{getAudio()}</div>
             </header>
@@ -66,12 +64,12 @@ export default function Home() {
               return (
                 <section key={`meaning-${key}`} className={styles.meanings}>
                   <header className={styles.separator}>
-                    <h2 className="bold font_lg italic">
+                    <Text tag="h2" className="bold text_lg italic">
                       {result.meanings[key].partOfSpeech}
-                    </h2>
+                    </Text>
                   </header>
                   <article>
-                    <p className="text_gray">Meaning</p>
+                    <Text className="text_gray">Meaning</Text>
                     <ul className={styles.list}>
                       {Object.keys(result.meanings[key].definitions).map(
                         (_, keys) => {
@@ -88,10 +86,10 @@ export default function Home() {
                     </ul>
                   </article>
                   <footer className={styles.footer}>
-                    <p>Synonyms</p>
-                    <p className="text_accent bold">
+                    <Text>Synonyms</Text>
+                    <Text className="text_accent bold">
                       {result.meanings[key].synonyms[0]}
-                    </p>
+                    </Text>
                   </footer>
                 </section>
               );

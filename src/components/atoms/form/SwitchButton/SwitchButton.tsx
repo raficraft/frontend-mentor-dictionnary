@@ -24,6 +24,7 @@ const SwitchButton: FC<SwitchButtonProps> = ({
         id="switchTheme"
         name="switchTheme"
         type="checkbox"
+        tabIndex={2}
         onChange={(e) => callback(e)}
         ref={inputRef}
       />

@@ -1,19 +1,18 @@
+@import "@css/mixin/mixin.scss";
+
 $width: 2.5rem;
 $height: 1.25rem;
 $spacing: 3px;
 
 .switchButton {
-  display: flex;
-  align-items: center;
+  @include flex(row, "", center);
   gap: 1.25rem;
 }
 
 .checkbox {
   position: relative;
-  display: flex;
-  align-items: center;
-  width: $width;
-  height: $height;
+  @include flex(row, "center", center);
+  @include size($width);
   background-color: var(--dark-to-accent);
   border-radius: 99999px;
   cursor: pointer;
@@ -23,14 +22,13 @@ $spacing: 3px;
 
   &::before {
     position: absolute;
-    display: block;
     left: $spacing;
-    width: calc($height - ($spacing * 2));
-    height: calc($height - ($spacing * 2));
-    transition: ease-in var(--transition-xs);
-    content: " ";
+    display: block;
+    @include size(calc($height - ($spacing * 2)));
     background-color: var(--clr-primary-800);
     border-radius: 99999px;
+    transition: ease-in var(--transition-xs);
+    content: " ";
   }
 
   &:checked::before {
@@ -40,33 +38,22 @@ $spacing: 3px;
 }
 
 .label {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @include flex(column, space-between);
   gap: 1rem;
-  height: $height;
   overflow: hidden;
   position: relative;
-  height: $height;
-  width: $height;
+  @include size($height);
   svg {
-    height: $height;
-    width: $height;
+    @include size($height);
   }
 }
 
 .animate_switchTheme {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
+  @include flex(column, space-between);
   gap: 1rem;
-
-  // height: calc(3 * $height);
-  // position: absolute;
-  // width: $height;
-  // content: " ";
-  // transform: translateY(0%);
 }
+
+// React css transitions
 
 .enter,
 .appear {

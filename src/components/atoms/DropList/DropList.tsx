@@ -28,7 +28,7 @@ const DropList: React.FC<DropListProps> = ({
   callback,
 }: DropListProps): JSX.Element => {
   const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [show, setShow, refOutsideClick] = useClickOutside(false);
+  const [open, setOpen, refOutsideClick] = useClickOutside(false);
 
   // Dynamical Refs
   const optionsRefs = useRef<Array<RefObject<HTMLButtonElement>>>(
@@ -39,27 +39,38 @@ const DropList: React.FC<DropListProps> = ({
     event.preventDefault();
     switch (event.key) {
       case "Enter":
-        setShow(!show);
+        setOpen(!open);
         break;
 
       case "Escape":
-        setShow(false);
+        setOpen(false);
         break;
 
       case "ArrowUp":
       case "ArrowDown":
-        !show && setShow(true);
+        !open && setOpen(true);
         break;
       case "Tab":
-        // if (show) {
-        //   console.log(optionsRefs);
-        //   const firstElement = optionsRefs.current[0].current;
-        //   firstElement ? firstElement.focus() : null;
-        // }
+        if (open) {
+          const index =
+            selectedIndex + 1 >= options.length ? 0 : selectedIndex + 1;
+          setSelectedIndex(index);
+          callback && callback(options[index]);
+        }
 
         break;
 
       default:
+        if (open) {
+          if (event.shiftKey && event.key === "Tab") {
+            const index =
+              selectedIndex + 1 < options.length
+                ? options.length - 1
+                : selectedIndex - 1;
+            setSelectedIndex(index);
+            callback && callback(options[index]);
+          }
+        }
         break;
     }
   };
@@ -72,7 +83,7 @@ const DropList: React.FC<DropListProps> = ({
         tabIndex={tabIndex}
         value={options[selectedIndex]}
         onClick={() => {
-          setShow(!show);
+          setOpen(!open);
         }}
         onKeyDown={handleKeyDown}
       >
@@ -80,7 +91,7 @@ const DropList: React.FC<DropListProps> = ({
         <IconArrowDown />
       </button>
 
-      <div className={styles.optionsList} data-show={show}>
+      <div className={styles.optionsList} data-open={open}>
         {options.map((option, key) => {
           return (
             <button
@@ -90,17 +101,16 @@ const DropList: React.FC<DropListProps> = ({
                 `}
               type="button"
               key={key}
-              tabIndex={tabIndex + key + 1}
               value={option}
               ref={optionsRefs.current[key]}
               onClick={() => {
                 setSelectedIndex(key);
-                setShow(false);
+                setOpen(false);
                 callback && callback(option);
               }}
               onKeyDown={() => {
                 setSelectedIndex(key);
-                setShow(false);
+                setOpen(false);
                 callback && callback(option);
               }}
             >
