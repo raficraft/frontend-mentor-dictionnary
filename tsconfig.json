@@ -28,6 +28,7 @@
       "@/organisms/*": ["src/components/organisms/*"],
       "@/templates/*": ["src/components/templates/*"],
       "@/hooks/*": ["src/js/hooks/*"],
+      "@/utils/*": ["src/js/utils/*"],
       "@/context/*": ["src/js/context/*"],
       "@/svg/*": ["src/assets/svg/*"],
       "@/styles/*": ["src/styles/*"],

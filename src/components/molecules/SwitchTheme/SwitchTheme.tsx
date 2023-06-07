@@ -37,7 +37,9 @@ const SwitchTheme: React.FC = () => {
             key={checked ? "moon" : "sun"}
           >
             <span ref={svgRef}>
-              {checked && <IconMoon className={styles.moon} />}
+              {checked && (
+                <IconMoon className={styles.moon} color="rgb(164, 69, 237)" />
+              )}
               {!checked && <IconSun className={styles.sun} />}
             </span>
           </CSSTransition>

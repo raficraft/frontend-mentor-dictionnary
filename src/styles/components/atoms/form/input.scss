@@ -1,3 +1,10 @@
+/* Supprime le style d'autocomplétion de Chrome pour les inputs de type "search" */
+input[type="search"] {
+  -webkit-appearance: none; /* Chrome, Safari */
+  -moz-appearance: none; /* Firefox */
+  appearance: none;
+}
+
 .input {
   max-width: 100%;
   width: 100%;
@@ -9,8 +16,19 @@
   padding: 0 1.25rem;
   font-weight: bold;
   border: none;
-  background-color: #f4f4f4;
+  background-color: var(--input-background);
   font-family: var(--font-family);
+  color: var(--input-placeholder);
+}
+
+input::placeholder {
+  color: var(--input-placeholder);
+}
+
+input:invalid:not([type="radio"]):not([type="checkbox"]):not([type="range"]) {
+  border: 1px solid var(--clr-warning);
+  outline-width: 1px;
+  outline-color: var(--clr-warning);
 }
 
 /* clears the ‘X’ from Internet Explorer */

@@ -5,7 +5,7 @@ type ErrorProps = {
 const FieldError: React.FC<ErrorProps> = ({ errorMessage }) => {
   return (
     <>
-      <p className={`text_warning`}>{errorMessage}</p>
+      <p className={`text_warning text_s`}>{errorMessage}</p>
     </>
   );
 };

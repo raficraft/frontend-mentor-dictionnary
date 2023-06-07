@@ -1,8 +1,6 @@
-//font-family: 'Lora', serif;
-// font-family: 'Inter', sans-serif;
-// font-family: 'Inconsolata', monospace;
 @use "@css/components/atoms/form/input.scss";
 @use "@css/components/atoms/text/text.scss";
+@import "@css/mixin/mixin.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Inter&family=Lora&display=swap");
 
 :root {
@@ -11,7 +9,7 @@
   --clr-light-gray: rgb(117, 117, 117);
 
   --clr-primary-100: rgba(5, 5, 5);
-  --clr-primary-200: rgba(5, 31, 31);
+  --clr-primary-200: rgba(31, 31, 31);
   --clr-primary-300: rgba(45, 45, 45);
   --clr-primary-400: rgba(58, 58, 58);
   --clr-primary-500: rgba(117, 117, 117);
@@ -47,6 +45,8 @@
     // DropList Color
     --background-dropList: var(--clr-primary-800);
     --color-dropList: var(--clr-primary-100);
+    --input-background: var(--clr-primary-700);
+    --input-placeholder: black;
   }
 
   [data-theme="dark"] {
@@ -54,10 +54,13 @@
     --color: var(--clr-primary-800);
     --shadow: 0px 5px 30px 0px rgba(164, 69, 237, 1);
     --dark-to-accent: var(--clr-accent);
+    --input-background: var(--clr-primary-700);
 
     // DropList Color
     --background-dropList: var(--clr-primary-400);
     --color-dropList: var(--clr-primary-800);
+    --input-background: var(--clr-primary-200);
+    --input-placeholder: white;
   }
 }
 
@@ -72,15 +75,12 @@ html {
 }
 
 body {
+  @include flex(column, "", center);
   height: 100%;
   background-color: var(--background);
   font-family: var(--font-family);
   color: var(--color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  line-height: 1.3;
+  line-height: 1.5;
 }
 
 #__next {

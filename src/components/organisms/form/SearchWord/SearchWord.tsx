@@ -2,8 +2,8 @@ import styles from "./SearchWord.module.scss";
 import { IconMagnify } from "@/src/assets/svg/icons";
 import { FormEvent } from "react";
 import { Field } from "@/molecules/index";
-import useForm from "@/src/js/hooks/useForm/useForm";
-import { debounce } from "@/src/js/utils/debounce/debounce";
+import { useForm } from "@/hooks/index";
+import { debounce } from "@/utils/debounce/debounce";
 
 interface SearchWordProps {
   callApi: (data: string) => void;
@@ -14,10 +14,16 @@ const SearchWord: React.FC<SearchWordProps> = ({ callApi }) => {
     fields: {
       search: {
         required: {
-          message: "Champ requis",
+          message: "Whoops, can’t be empty…",
         },
         pattern: {
-          message: "Champ requis",
+          message: "You can only use alphabetic characters",
+        },
+        minLength: {
+          message: "Two characters minimum",
+        },
+        maxLength: {
+          message: "32 character limit reached",
         },
       },
     },
@@ -27,6 +33,7 @@ const SearchWord: React.FC<SearchWordProps> = ({ callApi }) => {
     event.preventDefault();
     if (validateForm(event)) {
       const dataForm = getFormData(event);
+      console.log(dataForm);
       callApi(dataForm.search);
     } else {
       console.log("sub failed", errors);
@@ -35,11 +42,9 @@ const SearchWord: React.FC<SearchWordProps> = ({ callApi }) => {
 
   const handleChange = debounce((event) => {
     event.preventDefault();
+    const searchValue = event.target.value;
     if (validateField(event)) {
-      const searchValue = event.target.value;
-      if (searchValue) {
-        callApi(event.target.value);
-      }
+      callApi(searchValue);
     }
   }, 300);
 
@@ -51,7 +56,7 @@ const SearchWord: React.FC<SearchWordProps> = ({ callApi }) => {
           placeholder="Search a word"
           name="search"
           required
-          minLength={4}
+          minLength={2}
           maxLength={32}
           pattern="^[a-zA-ZÀ-ÿ ]{1,32}$"
           onChange={handleChange}

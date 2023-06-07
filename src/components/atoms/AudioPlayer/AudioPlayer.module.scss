@@ -11,6 +11,14 @@
   transition: 0.3s;
   background-color: var(--clr-accent);
 
+  &[data-theme="dark"] {
+    background-color: rgba(164, 69, 237, 0.25);
+
+    svg {
+      color: var(--clr-accent);
+    }
+  }
+
   svg {
     display: flex;
     @include size(1.25rem);
@@ -25,6 +33,7 @@
 
   &:disabled {
     background-color: rgb(180, 180, 180);
+    cursor: not-allowed;
     &:active {
       transform: scale(1);
     }

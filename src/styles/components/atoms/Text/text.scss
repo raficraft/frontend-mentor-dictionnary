@@ -29,6 +29,10 @@
   color: var(--clr-warning);
 }
 
+.text_center {
+  text-align: center;
+}
+
 .text_warning:empty {
   min-height: 2rem;
 }

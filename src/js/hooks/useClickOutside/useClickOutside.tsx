@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 
-export const useClickOutside = (
+const useClickOutside = (
   init: boolean
 ): [
   boolean,
@@ -8,14 +8,14 @@ export const useClickOutside = (
   React.MutableRefObject<any>
 ] => {
   const refOutsideClick = useRef<HTMLElement>(null);
-  const [show, setShow] = useState<boolean>(init);
+  const [open, setOpen] = useState<boolean>(init);
 
   const handleClickOutside = (event: MouseEvent) => {
     if (
       refOutsideClick.current &&
       !refOutsideClick.current.contains(event.target as Node)
     ) {
-      setShow(false);
+      setOpen(false);
     }
   };
 
@@ -27,5 +27,7 @@ export const useClickOutside = (
     };
   }, [refOutsideClick]);
 
-  return [show, setShow, refOutsideClick];
+  return [open, setOpen, refOutsideClick];
 };
+
+export default useClickOutside;

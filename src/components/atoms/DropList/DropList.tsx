@@ -1,13 +1,7 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  createRef,
-  RefObject,
-} from "react";
+import React from "react";
 import styles from "./DropList.module.scss";
-import { useClickOutside } from "@/src/js/hooks/useClickOutside";
 import { IconArrowDown } from "@/src/assets/svg/icons";
+import { useDropList } from "@/hooks/index";
 
 interface SVGProps {
   open: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -27,53 +21,15 @@ const DropList: React.FC<DropListProps> = ({
   tabIndex = 1,
   callback,
 }: DropListProps): JSX.Element => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [open, setOpen, refOutsideClick] = useClickOutside(false);
-
-  // Dynamical Refs
-  const optionsRefs = useRef<Array<RefObject<HTMLButtonElement>>>(
-    options.map(() => createRef())
-  );
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    switch (event.key) {
-      case "Enter":
-        setOpen(!open);
-        break;
-
-      case "Escape":
-        setOpen(false);
-        break;
-
-      case "ArrowUp":
-      case "ArrowDown":
-        !open && setOpen(true);
-        break;
-      case "Tab":
-        if (open) {
-          const index =
-            selectedIndex + 1 >= options.length ? 0 : selectedIndex + 1;
-          setSelectedIndex(index);
-          callback && callback(options[index]);
-        }
-
-        break;
-
-      default:
-        if (open) {
-          if (event.shiftKey && event.key === "Tab") {
-            const index =
-              selectedIndex + 1 < options.length
-                ? options.length - 1
-                : selectedIndex - 1;
-            setSelectedIndex(index);
-            callback && callback(options[index]);
-          }
-        }
-        break;
-    }
-  };
+  const {
+    selectedIndex,
+    open,
+    refOutsideClick,
+    setOpen,
+    handleKeyDown,
+    handleOptionClick,
+    optionsRefs,
+  } = useDropList({ options, callback });
 
   return (
     <div ref={refOutsideClick} className={styles.dropList}>
@@ -103,16 +59,8 @@ const DropList: React.FC<DropListProps> = ({
               key={key}
               value={option}
               ref={optionsRefs.current[key]}
-              onClick={() => {
-                setSelectedIndex(key);
-                setOpen(false);
-                callback && callback(option);
-              }}
-              onKeyDown={() => {
-                setSelectedIndex(key);
-                setOpen(false);
-                callback && callback(option);
-              }}
+              onClick={() => handleOptionClick(key, option)}
+              onKeyDown={() => handleOptionClick(key, option)}
             >
               {option}
             </button>

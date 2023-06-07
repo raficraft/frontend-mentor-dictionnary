@@ -6,7 +6,7 @@ type SwitchButtonProps = {
   children?: string | React.ReactElement | SVGElement;
   externalStyles?: any;
   inputRef?: Ref<HTMLInputElement>;
-} & HTMLAttributes<HTMLDivElement>;
+} & HTMLAttributes<HTMLInputElement>;
 
 const SwitchButton: FC<SwitchButtonProps> = ({
   callback,
@@ -18,7 +18,7 @@ const SwitchButton: FC<SwitchButtonProps> = ({
   const styles = externalStyles || internalStyles;
 
   return (
-    <div className={`${styles.switchButton}`} {...props}>
+    <div className={`${styles.switchButton}`}>
       <input
         className={styles.checkbox}
         id="switchTheme"
@@ -27,6 +27,7 @@ const SwitchButton: FC<SwitchButtonProps> = ({
         tabIndex={2}
         onChange={(e) => callback(e)}
         ref={inputRef}
+        {...props}
       />
       {children}
     </div>
