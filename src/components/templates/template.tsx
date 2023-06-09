@@ -6,10 +6,10 @@ type TemplateProps = {
 
 const Template = ({ children }: TemplateProps) => {
   return (
-    <>
+    <div className="rootContainer">
       <Header></Header>
       {children}
-    </>
+    </div>
   );
 };
 

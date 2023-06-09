@@ -17,11 +17,11 @@
   --clr-primary-700: rgba(244, 244, 244);
   --clr-primary-800: rgba(255, 255, 255);
 
-  --font-size-xl: 4rem;
-  --font-size-lg: 1.5rem;
-  --font-size-m: 1.25rem;
-  --font-size-s: 1.125rem;
-  --font-size-xs: 0.875rem;
+  --font-size-xl: 4rem; // 64px
+  --font-size-lg: 1.5rem; // 24px
+  --font-size-m: 1.25rem; // 20px
+  --font-size-s: 1.125rem; // 18px
+  --font-size-xs: 0.875rem; // 14px
 
   --transition-xs: 0.3s;
   --transition-md: 0.5s;
@@ -29,7 +29,15 @@
   --z-index-100: 100;
   --z-index-200: 200;
 
-  --root-size: 46rem;
+  --root-size: 51rem;
+
+  @media screen and (max-width: 600px) {
+    --font-size-xl: 2rem;
+    --font-size-lg: 1.125rem;
+    --font-size-m: 1.125rem;
+    --font-size-s: 0.875rem;
+    --font-size-xs: 0.875rem;
+  }
 
   // NEXT.js default font
   // --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
@@ -46,7 +54,8 @@
     --background-dropList: var(--clr-primary-800);
     --color-dropList: var(--clr-primary-100);
     --input-background: var(--clr-primary-700);
-    --input-placeholder: black;
+    --input-text: var(--clr-primary-100);
+    --input-placeholder: var(--clr-primary-500);
   }
 
   [data-theme="dark"] {
@@ -59,6 +68,7 @@
     // DropList Color
     --background-dropList: var(--clr-primary-400);
     --color-dropList: var(--clr-primary-800);
+    --input-background: var(--clr-primary-200);
     --input-background: var(--clr-primary-200);
     --input-placeholder: white;
   }
@@ -74,6 +84,11 @@ html {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: var(--clr-primary-100);
+}
+
 body {
   @include flex(column, "", center);
   height: 100%;
@@ -84,10 +99,10 @@ body {
 }
 
 #__next {
-  background-color: var(--background);
   max-width: var(--root-size);
   width: 100%;
   height: inherit;
+  background-color: var(--background);
 }
 
 main {
@@ -95,13 +110,35 @@ main {
 }
 
 .rootContainer {
-  display: flex;
+  @include flex(column);
+  padding: 0 2.5rem;
+  min-height: 100%;
   max-width: var(--root-size);
   width: 100%;
+  @media screen and (max-width: 375px) {
+    padding: 0 1.5rem;
+  }
 }
 
 label {
   cursor: pointer;
+}
+
+.full_width {
+  width: 100%;
+  max-width: 100%;
+}
+
+.hr_horizontal {
+  border: none;
+  background-color: var(--clr-primary-600);
+  height: 1px;
+}
+.hr_vertical {
+  border: none;
+  background-color: var(--clr-primary-600);
+  height: 1.5rem;
+  width: 1px;
 }
 
 .sr-only {

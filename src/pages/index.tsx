@@ -1,31 +1,24 @@
 import Head from "next/head";
-import React, { useState } from "react";
+import React, { useEffect, useState } from "react";
 import { Inter } from "next/font/google";
 import { Dictionnary, ErrorApi, SearchWord } from "@/organisms/index";
+import { useDictionarySearch } from "@/hooks/index";
+import { Loading } from "@/atoms/index";
 import styles from "@/styles/pages/Home.module.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
-  const [result, setResult] = useState<any | undefined>([]);
-  const [error, setError] = useState<boolean>(false);
+  const { result, error, fetchData, loading } = useDictionarySearch();
+  const [isEmptyField, setIsEmptyField] = useState(false);
 
-  const fetchData = async (word: string) => {
-    console.log("word on page", word);
-
-    try {
-      const response = await fetch(`/api/dictionary?word=${word}`);
-      const data: any = await response.json();
-      if (data.error) {
-        throw new Error("No Definitions found");
-      } else {
-        setResult(data[0]);
-        setError(false);
-      }
-    } catch (error: any) {
-      setError(true);
+  useEffect(() => {
+    if (!result) {
+      setIsEmptyField(true);
+    } else {
+      setIsEmptyField(false);
     }
-  };
+  }, [result]);
 
   return (
     <>
@@ -37,8 +30,13 @@ export default function Home() {
       </Head>
       <SearchWord callApi={fetchData} />
       <main className={styles.main}>
-        {error && <ErrorApi />}
-        {result.word && !error ? <Dictionnary dictionnary={result} /> : null}
+        {loading && <Loading />}
+        {error?.message === "No Definitions found" &&
+          !isEmptyField &&
+          !loading && <ErrorApi />}
+        {result && !error && !isEmptyField && !loading && (
+          <Dictionnary dictionnary={result} />
+        )}
       </main>
     </>
   );

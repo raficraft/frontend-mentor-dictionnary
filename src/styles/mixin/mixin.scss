@@ -76,15 +76,15 @@
   display: flex;
   flex-direction: $direction;
 
-  @if $wrap != null or $wrap != "" {
+  @if $wrap != null and $wrap != "" {
     flex-wrap: $wrap;
   }
 
-  @if $justifyContent != null or $justifyContent != "" {
+  @if $justifyContent != null and $justifyContent != "" {
     justify-content: $justifyContent;
   }
 
-  @if $alignItems != null or $alignItems != "" {
+  @if $alignItems != null and $alignItems != "" {
     align-items: $alignItems;
   }
 }

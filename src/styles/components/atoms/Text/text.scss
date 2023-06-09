@@ -2,17 +2,21 @@
   font-size: var(--font-size-xl);
   line-height: 1.2;
 }
+
 .text_lg {
   font-size: var(--font-size-lg);
   line-height: 1.25;
 }
+
 .text_m {
   font-size: var(--font-size-m);
   line-height: 1.25;
 }
+
 .text_s {
   font-size: var(--font-size-s);
 }
+
 .text_xs {
   font-size: var(--font-size-xs);
 }
@@ -35,6 +39,10 @@
 
 .text_warning:empty {
   min-height: 2rem;
+}
+
+.letter_spacing_2 {
+  letter-spacing: 2px;
 }
 
 .bold {

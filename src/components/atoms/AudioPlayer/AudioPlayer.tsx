@@ -9,7 +9,7 @@ type AudioPlayerProps = {
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
   const { playing, togglePlay, handleEnded, audioRef } = useAudioPlayer(src);
-  const { theme, toggleTheme } = useTheme();
+  const { theme } = useTheme();
 
   return (
     <>

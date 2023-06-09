@@ -8,6 +8,7 @@ export function IconDictionary(props: SVGProps<SVGSVGElement>) {
       height="34"
       fill="none"
       viewBox="0 0 30 34"
+      {...props}
     >
       <path
         fill="#757575"
@@ -58,6 +59,7 @@ export function IconArrowDown(props: SVGProps<SVGSVGElement>) {
       height="9"
       fill="none"
       viewBox="0 0 13 9"
+      {...props}
     >
       <path stroke="#A445ED" strokeWidth="1.5" d="m1 1 6 6 6-6" />
     </svg>
@@ -72,6 +74,7 @@ export function IconMagnify(props: SVGProps<SVGSVGElement>) {
       height="18"
       fill="none"
       viewBox="0 0 18 18"
+      {...props}
     >
       <path
         fill="#A445ED"
@@ -106,6 +109,7 @@ export function IconPlay(props: SVGProps<SVGSVGElement>) {
       height="21"
       fill="none"
       viewBox="0 0 21 21"
+      {...props}
     >
       <path
         fill="currentColor"
@@ -113,6 +117,27 @@ export function IconPlay(props: SVGProps<SVGSVGElement>) {
         d="M0 0v21l21-10.5L0 0Z"
         clipRule="evenodd"
       />
+    </svg>
+  );
+}
+
+export function IconExternalLink(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"
+      ></path>
     </svg>
   );
 }

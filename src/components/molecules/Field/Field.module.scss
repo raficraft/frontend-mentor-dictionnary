@@ -8,7 +8,7 @@
   @include flex(row, center, center);
 
   svg {
-    @include size(1.5rem);
+    @include size(1rem);
     color: var(--clr-accent);
   }
 }

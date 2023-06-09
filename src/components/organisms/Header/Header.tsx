@@ -5,10 +5,11 @@ import SwitchFont from "@/molecules/SwitchFont/SwitchFont";
 
 const Header = () => {
   return (
-    <header className={`rootContainer ${styles.header}`}>
+    <header className={styles.header}>
       <IconDictionary />
       <div className={`${styles.switch}`}>
         <SwitchFont />
+        <span className="hr_vertical"></span>
         <SwitchTheme />
       </div>
     </header>

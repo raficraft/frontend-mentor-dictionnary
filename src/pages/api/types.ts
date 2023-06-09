@@ -24,7 +24,7 @@ interface Definition {
   example?: string;
 }
 
-interface Meaning {
+interface Meaning {  
   partOfSpeech: string;
   definitions: Definition[];
   synonyms: string[];
