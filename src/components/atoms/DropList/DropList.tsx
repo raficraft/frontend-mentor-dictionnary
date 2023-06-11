@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./DropList.module.scss";
 import { IconArrowDown } from "@/src/assets/svg/icons";
-import { useDropList } from "@/hooks/index";
+import useDropList from "../../../hooks/useDropList/UseDropList";
 
 interface SVGProps {
   open: React.FC<React.SVGProps<SVGSVGElement>>;

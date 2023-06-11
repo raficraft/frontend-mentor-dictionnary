@@ -27,9 +27,9 @@
       "@/molecules/*": ["src/components/molecules/*"],
       "@/organisms/*": ["src/components/organisms/*"],
       "@/templates/*": ["src/components/templates/*"],
-      "@/hooks/*": ["src/js/hooks/*"],
-      "@/utils/*": ["src/js/utils/*"],
-      "@/context/*": ["src/js/context/*"],
+      "@/hooks/*": ["src/hooks/*"],
+      "@/utils/*": ["src/utils/*"],
+      "@/context/*": ["src/context/*"],
       "@/svg/*": ["src/assets/svg/*"],
       "@/styles/*": ["src/styles/*"],
       

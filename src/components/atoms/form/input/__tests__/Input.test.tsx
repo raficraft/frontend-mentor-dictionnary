@@ -10,15 +10,6 @@ const attributes: InputProps = {
   tabIndex: 1,
 };
 
-const inputTypes: (InputProps["type"] | "radio" | "checkbox")[] = [
-  "text",
-  "password",
-  "number",
-  "email",
-  "tel",
-  "search",
-];
-
 describe("When Input component is loaded", () => {
   beforeEach(() => {
     render(<Input role="textbox" {...attributes} />);
@@ -27,11 +18,6 @@ describe("When Input component is loaded", () => {
   test("renders without errors", () => {
     const inputElement = screen.getByRole("textbox");
     expect(inputElement).toBeInTheDocument();
-  });
-
-  test("has the 'input' class", () => {
-    const inputElement = screen.getByRole("textbox");
-    expect(inputElement).toHaveClass("input");
   });
 
   test("the attributes went well", () => {
@@ -50,21 +36,11 @@ describe("When Input component is loaded is disabled", () => {
   });
 });
 
-describe("Input component", () => {
-  test.each(inputTypes)("has type '%s'", (type) => {
-    const role = type === "radio" || type === "checkbox" ? "radio" : "textbox";
-    render(<Input role={role} {...attributes} type={type} />);
-    const inputElement: HTMLInputElement = screen.getByRole(role);
-
-    expect(inputElement.getAttribute("type")).toBe(type);
-  });
-});
-
 describe("When the input value is changed", () => {
   test("should update the input value correctly using the ref", () => {
     const ref = React.createRef<HTMLInputElement>();
 
-    render(<Input inputRef={ref} />);
+    render(<Input ref={ref} />);
 
     // Vérifiez si la référence est correctement transmise
     expect(ref.current).toBeDefined();

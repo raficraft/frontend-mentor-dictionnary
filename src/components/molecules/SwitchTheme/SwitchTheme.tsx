@@ -3,7 +3,7 @@ import { SwitchButton } from "@/atoms/index";
 import { IconMoon, IconSun } from "@/src/assets/svg/icons";
 import styles from "./SwitchTheme.module.scss";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
-import { useTheme } from "@/src/js/context/useTheme";
+import { useTheme } from "@/src/context/useTheme";
 
 const SwitchTheme: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -23,10 +23,11 @@ const SwitchTheme: React.FC = () => {
     <SwitchButton
       data-theme={theme}
       callback={(e) => {
+        console.log("??");
         toggleTheme();
       }}
       externalStyles={styles}
-      inputRef={inputRef}
+      ref={inputRef}
     >
       <label htmlFor="switchTheme" className={styles.label}>
         <SwitchTransition>

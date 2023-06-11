@@ -1,7 +1,7 @@
 import { IconPlay } from "@/src/assets/svg/icons";
 import styles from "./AudioPlayer.module.scss";
 import { useAudioPlayer } from "@/hooks/index";
-import { useTheme } from "@/src/js/context/useTheme";
+import { useTheme } from "@/src/context/useTheme";
 
 type AudioPlayerProps = {
   src: string | null;

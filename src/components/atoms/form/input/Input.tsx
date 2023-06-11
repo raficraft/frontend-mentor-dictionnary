@@ -1,7 +1,9 @@
-import { forwardRef, ForwardedRef, InputHTMLAttributes } from "react";
+import React, { forwardRef, ForwardedRef, InputHTMLAttributes } from "react";
+
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = forwardRef(function Input(
-  { ...props },
+  props: InputProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
   return <input ref={ref} {...props} />;
@@ -9,4 +11,5 @@ const Input = forwardRef(function Input(
 
 Input.displayName = "Input";
 
+export type { InputProps };
 export default Input;
