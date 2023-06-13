@@ -1,4 +1,4 @@
-import { Header } from "@/organisms/index";
+import { Header } from "@organisms/index";
 
 type TemplateProps = {
   children?: React.ReactNode;

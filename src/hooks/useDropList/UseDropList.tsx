@@ -1,9 +1,14 @@
 import React, { useState, useRef, createRef, RefObject } from "react";
 import styles from "./DropList.module.scss";
-import { useClickOutside } from "@/hooks/index";
+import { useClickOutside } from "@hooks/index";
+
+export interface Option {
+  label: string;
+  value: any;
+}
 
 interface UseDropListProps {
-  options: string[];
+  options: Option[];
   callback?: (value: any) => void;
 }
 
@@ -13,7 +18,7 @@ interface UseDropListResult {
   setOpen: (open: boolean) => void;
   refOutsideClick: React.RefObject<HTMLDivElement>;
   handleKeyDown: (event: React.KeyboardEvent<HTMLButtonElement>) => void;
-  handleOptionClick: (index: number, option: string) => void;
+  handleOptionClick: (index: number, option: Option) => void;
   optionsRefs: React.MutableRefObject<RefObject<HTMLButtonElement>[]>;
 }
 
@@ -43,14 +48,14 @@ function useDropList({
       case "ArrowDown":
         !open && setOpen(true);
         break;
+
       case "Tab":
         if (open) {
           const index =
             selectedIndex + 1 >= options.length ? 0 : selectedIndex + 1;
           setSelectedIndex(index);
-          callback && callback(options[index]);
+          callback && callback(options[index].value);
         }
-
         break;
 
       default:
@@ -61,17 +66,17 @@ function useDropList({
                 ? options.length - 1
                 : selectedIndex - 1;
             setSelectedIndex(index);
-            callback && callback(options[index]);
+            callback && callback(options[index].value);
           }
         }
         break;
     }
   };
 
-  const handleOptionClick = (index: number, option: string) => {
+  const handleOptionClick = (index: number, option: Option) => {
     setSelectedIndex(index);
     setOpen(false);
-    callback && callback(option);
+    callback && callback(option.value);
   };
 
   return {
@@ -84,4 +89,5 @@ function useDropList({
     optionsRefs,
   };
 }
+
 export default useDropList;

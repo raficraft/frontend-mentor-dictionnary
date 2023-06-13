@@ -1,10 +1,10 @@
 import Head from "next/head";
 import React, { useEffect, useState } from "react";
 import { Inter } from "next/font/google";
-import { Dictionnary, ErrorApi, SearchWord } from "@/organisms/index";
-import { useDictionarySearch } from "@/hooks/index";
-import { Loading } from "@/atoms/index";
-import styles from "@/styles/pages/Home.module.scss";
+import { Dictionnary, ErrorApi, SearchWord } from "@organisms/index";
+import { useDictionarySearch } from "@hooks/index";
+import { Loading } from "@atoms/index";
+import styles from "@styles/pages/Home.module.scss";
 
 const inter = Inter({ subsets: ["latin"] });
 

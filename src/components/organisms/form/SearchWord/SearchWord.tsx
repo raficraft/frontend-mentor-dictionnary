@@ -1,9 +1,9 @@
 import styles from "./SearchWord.module.scss";
 import React, { FormEvent, forwardRef, useEffect, useRef } from "react";
-import { IconMagnify } from "@/src/assets/svg/icons";
-import { Field } from "@/molecules/index";
-import { useForm } from "@/hooks/index";
-import { debounce } from "@/utils/debounce/debounce";
+import { IconMagnify } from "@assets/svg/icons";
+import { Field } from "@molecules/index";
+import { useForm } from "@hooks/index";
+import { debounce } from "@utils/debounce/debounce";
 
 interface SearchWordProps {
   callApi: (data: string) => void;

@@ -1,7 +1,7 @@
 import React from "react";
 import styles from "./DropList.module.scss";
-import { IconArrowDown } from "@/src/assets/svg/icons";
-import useDropList from "../../../hooks/useDropList/UseDropList";
+import { IconArrowDown } from "@assets/svg/icons";
+import useDropList, { Option } from "@hooks/useDropList/UseDropList";
 
 interface SVGProps {
   open: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -10,7 +10,7 @@ interface SVGProps {
 }
 
 interface DropListProps {
-  options: string[];
+  options: Option[];
   callback?: (value: any) => void;
   tabIndex?: number;
   svg?: SVGProps;
@@ -37,17 +37,21 @@ const DropList: React.FC<DropListProps> = ({
         className={styles.select}
         type="button"
         tabIndex={tabIndex}
-        value={options[selectedIndex]}
+        value={options[selectedIndex].value}
         onClick={() => {
           setOpen(!open);
         }}
         onKeyDown={handleKeyDown}
+        data-testid="select-button"
       >
-        {options[selectedIndex]}
+        {options[selectedIndex].label}
         <IconArrowDown />
       </button>
-
-      <div className={styles.optionsList} data-open={open}>
+      <div
+        className={styles.optionsList}
+        data-open={open}
+        data-testid="options-list"
+      >
         {options.map((option, key) => {
           return (
             <button
@@ -57,12 +61,13 @@ const DropList: React.FC<DropListProps> = ({
                 `}
               type="button"
               key={key}
-              value={option}
+              value={option.value}
               ref={optionsRefs.current[key]}
               onClick={() => handleOptionClick(key, option)}
               onKeyDown={() => handleOptionClick(key, option)}
+              data-testid={`option-button-${key}`}
             >
-              {option}
+              {option.label}
             </button>
           );
         })}

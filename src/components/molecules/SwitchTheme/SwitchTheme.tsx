@@ -1,9 +1,9 @@
-import React, { useEffect, useState, useRef } from "react";
-import { SwitchButton } from "@/atoms/index";
-import { IconMoon, IconSun } from "@/src/assets/svg/icons";
+import React, { useEffect, useRef } from "react";
+import { SwitchButton } from "@atoms/index";
+import { IconMoon, IconSun } from "@assets/svg/icons";
 import styles from "./SwitchTheme.module.scss";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
-import { useTheme } from "@/src/context/useTheme";
+import { useTheme } from "@context/useTheme";
 
 const SwitchTheme: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -23,11 +23,11 @@ const SwitchTheme: React.FC = () => {
     <SwitchButton
       data-theme={theme}
       callback={(e) => {
-        console.log("??");
         toggleTheme();
       }}
       externalStyles={styles}
       ref={inputRef}
+      data-testid="switch-theme-button"
     >
       <label htmlFor="switchTheme" className={styles.label}>
         <SwitchTransition>
@@ -37,7 +37,7 @@ const SwitchTheme: React.FC = () => {
             timeout={300}
             key={checked ? "moon" : "sun"}
           >
-            <span ref={svgRef}>
+            <span ref={svgRef} data-testid="label-icon">
               {checked && (
                 <IconMoon className={styles.moon} color="rgb(164, 69, 237)" />
               )}

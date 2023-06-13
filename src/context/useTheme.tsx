@@ -1,4 +1,4 @@
-import { createContext, useContext, useEffect, useState } from "react";
+import { createContext, useContext, useState } from "react";
 
 type Theme = "light" | "dark";
 
@@ -20,7 +20,6 @@ export const ThemeProvider: React.FC<{ children: React.ReactNode }> = ({
   const [theme, setTheme] = useState<Theme>("light");
 
   const toggleTheme = () => {
-    console.log("what");
     const newTheme: Theme = theme === "light" ? "dark" : "light";
     setTheme(newTheme);
   };

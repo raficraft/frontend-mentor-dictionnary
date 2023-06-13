@@ -1,4 +1,4 @@
-import { Text } from "@/atoms/index";
+import { Text } from "@atoms/index";
 import styles from "./ErrorApi.module.scss";
 import Image from "next/image";
 

@@ -1,7 +1,7 @@
-import { IconDictionary } from "@/src/assets/svg/icons";
+import { IconDictionary } from "@assets/svg/icons";
 import styles from "./Header.module.scss";
-import SwitchTheme from "@/molecules/SwitchTheme/SwitchTheme";
-import SwitchFont from "@/molecules/SwitchFont/SwitchFont";
+import SwitchTheme from "@molecules/SwitchTheme/SwitchTheme";
+import SwitchFont from "@molecules/SwitchFont/SwitchFont";
 
 const Header = () => {
   return (

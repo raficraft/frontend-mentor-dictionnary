@@ -1,4 +1,4 @@
-import DictionaryApiResult from "@/src/pages/api/types";
+import DictionaryApiResult from "@api/types";
 import { useState } from "react";
 
 type DictionaryError = {

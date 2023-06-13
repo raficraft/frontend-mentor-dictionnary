@@ -1,14 +1,15 @@
-import { IconPlay } from "@/src/assets/svg/icons";
 import styles from "./AudioPlayer.module.scss";
-import { useAudioPlayer } from "@/hooks/index";
-import { useTheme } from "@/src/context/useTheme";
+import useAudioPlayer from "../../../hooks/useAudioPlayer/useAudioPlayer";
+import { useTheme } from "@context/useTheme";
+import { IconPlay, IconPause } from "@assets/svg/icons";
 
 type AudioPlayerProps = {
   src: string | null;
 };
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
-  const { playing, togglePlay, handleEnded, audioRef } = useAudioPlayer(src);
+  const { playing, pause, pauseAudio, playAudio, handleEnded, audioRef } =
+    useAudioPlayer(src);
   const { theme } = useTheme();
 
   return (
@@ -19,16 +20,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
           src={src}
           onEnded={handleEnded}
           data-playing={playing}
+          data-pause={pause}
+          data-testid="audio"
         />
       )}
       <button
-        onClick={togglePlay}
+        onClick={!pause ? playAudio : pauseAudio}
         type="button"
         className={styles.btn}
         data-theme={theme}
-        {...(src ? { disabled: playing } : { disabled: true })}
+        data-testid="audio-player-button"
       >
-        {<IconPlay />}
+        {!pause && <IconPlay data-testid="icon-play" />}
+        {pause && <IconPause data-testid="icon-pause" />}
       </button>
     </>
   );

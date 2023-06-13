@@ -1,9 +1,9 @@
 import React from "react";
-import { Text, AudioPlayer } from "@/atoms/index";
+import { Text, AudioPlayer } from "@atoms/index";
 import styles from "./Dictionnary.module.scss";
-import DictionaryApiResult from "@/src/pages/api/types";
+import DictionaryApiResult from "@api/types";
 import Link from "next/link";
-import { IconExternalLink } from "@/src/assets/svg/icons";
+import { IconExternalLink } from "@assets/svg/icons";
 
 interface DictionnaryProps {
   dictionnary: DictionaryApiResult;

@@ -1,6 +1,6 @@
 import React, { forwardRef, ReactNode, Ref, InputHTMLAttributes } from "react";
 import styles from "./Field.module.scss";
-import { Input, FieldError } from "@/atoms/index";
+import { Input, Text } from "@atoms/index";
 
 interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
@@ -22,7 +22,7 @@ const Field = forwardRef(
           {svg ? <span className={styles.icon}>{svg}</span> : null}
           {reverse && children ? children : null}
         </div>
-        {<FieldError errorMessage={error} />}
+        {error && <Text className={`text_warning text_s`}>{error}</Text>}
       </div>
     );
   }

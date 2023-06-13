@@ -2,35 +2,48 @@ import { useState, useRef, MutableRefObject } from "react";
 
 type UseAudioPlayerResult = {
   playing: boolean;
-  togglePlay: () => void;
+  pause: boolean;
+  pauseAudio: () => void;
+  playAudio: () => void;
   handleEnded: () => void;
   audioRef: MutableRefObject<HTMLAudioElement | null>;
 };
 
 const useAudioPlayer = (src: string | null): UseAudioPlayerResult => {
   const [playing, setPlaying] = useState(false);
+  const [pause, setPause] = useState(false);
   const audioRef = useRef<HTMLAudioElement | null>(null);
 
-  const togglePlay = () => {
+  const playAudio = () => {
     const audio = audioRef.current;
 
     if (audio) {
-      if (playing) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-      setPlaying(!playing);
+      audio.play();
+      setPlaying(true);
+      setPause(true);
+    }
+  };
+
+  const pauseAudio = () => {
+    const audio = audioRef.current;
+
+    if (audio) {
+      audio.pause();
+      setPlaying(false);
+      setPause(true);
     }
   };
 
   const handleEnded = () => {
     setPlaying(false);
+    setPause(false);
   };
 
   return {
     playing,
-    togglePlay,
+    pause,
+    pauseAudio,
+    playAudio,
     handleEnded,
     audioRef,
   };
