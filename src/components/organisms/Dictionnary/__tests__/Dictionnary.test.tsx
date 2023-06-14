@@ -1,23 +1,32 @@
 import React from "react";
 import { render } from "@testing-library/react";
 import Dictionnary from "../Dictionnary";
+import DictionaryApiResult from "@api/types";
 
 describe("Dictionnary", () => {
-  const mockDictionnary = {
+  const mockDictionnary: DictionaryApiResult = {
     word: "example",
     phonetic: "/ɪɡˈzæmpəl/",
     phonetics: [],
-    meanings: {
-      0: {
+    meanings: [
+      {
         partOfSpeech: "noun",
-        definitions: {
-          0: {
+        definitions: [
+          {
             definition:
               "a thing characteristic of its kind or illustrating a general rule",
+            synonyms: [],
+            antonyms: [],
+            example: undefined,
           },
-        },
+        ],
         synonyms: [],
+        antonyms: [],
       },
+    ],
+    license: {
+      name: "",
+      url: "",
     },
     sourceUrls: [],
   };
