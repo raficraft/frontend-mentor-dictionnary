@@ -1,13 +1,7 @@
-import React, {
-  useEffect,
-  useState,
-  useRef,
-  createRef,
-  RefObject,
-} from "react";
+import React, { useEffect } from "react";
 import styles from "./DropList.module.scss";
-import { useClickOutside } from "@/src/js/hooks/useClickOutside";
-import { IconArrowDown } from "@/src/assets/svg/icons";
+import { IconArrowDown } from "@assets/svg/icons";
+import useDropList, { Option } from "@hooks/useDropList/UseDropList";
 
 interface SVGProps {
   open: React.FC<React.SVGProps<SVGSVGElement>>;
@@ -15,96 +9,78 @@ interface SVGProps {
   position: "left" | "right";
 }
 
-interface DropListProps {
-  options: string[];
+interface DropListProps extends React.HTMLProps<HTMLButtonElement> {
+  options: Option[];
   callback?: (value: any) => void;
-  tabIndex?: number;
   svg?: SVGProps;
 }
 
-const Droplist: React.FC<DropListProps> = ({
-  options = [],
-  tabIndex = 1,
+const DropList: React.FC<DropListProps> = ({
+  options,
   callback,
-}: DropListProps): JSX.Element => {
-  const [selectedIndex, setSelectedIndex] = useState<number>(0);
-  const [show, setShow, refOutsideClick] = useClickOutside(false);
+}: DropListProps): JSX.Element | null => {
+  const {
+    selectedIndex,
+    open,
+    refOutsideClick,
+    setOpen,
+    handleKeyDown,
+    handleOptionClick,
+    optionsRefs,
+  } = useDropList({ options, callback });
 
-  // Dynamical Refs
-  const optionsRefs = useRef<Array<RefObject<HTMLButtonElement>>>(
-    options.map(() => createRef())
-  );
-
-  const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-    switch (event.key) {
-      case "Enter":
-        setShow(!show);
-        break;
-
-      case "Escape":
-        setShow(false);
-        break;
-
-      case "ArrowUp":
-      case "ArrowDown":
-        !show && setShow(true);
-        break;
-      case "Tab":
-        // if (show) {
-        //   console.log(optionsRefs);
-        //   const firstElement = optionsRefs.current[0].current;
-        //   firstElement ? firstElement.focus() : null;
-        // }
-
-        break;
-
-      default:
-        break;
+  useEffect(() => {
+    if (options.length === 0) {
+      console.warn("Aucune option n'a été fournie pour DropList.");
     }
-  };
+  }, [options]);
+
+  if (options.length === 0) {
+    return null;
+  }
 
   return (
     <div ref={refOutsideClick} className={styles.dropList}>
       <button
         className={styles.select}
         type="button"
-        tabIndex={tabIndex}
-        value={options[selectedIndex]}
+        value={options[selectedIndex].value}
         onClick={() => {
-          setShow(!show);
+          setOpen(!open);
         }}
         onKeyDown={handleKeyDown}
+        data-testid="select-button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label="Select an option"
       >
-        {options[selectedIndex]}
+        {options[selectedIndex].label}
         <IconArrowDown />
       </button>
-
-      <div className={styles.optionsList} data-show={show}>
+      <div
+        className={styles.optionsList}
+        data-open={open}
+        data-testid="options-list"
+        role="listbox"
+        aria-multiselectable={false}
+      >
         {options.map((option, key) => {
           return (
             <button
               className={`
-                  ${styles.option} 
-                  ${key === selectedIndex ? styles.active : ""}
-                `}
+                ${styles.option} 
+                ${key === selectedIndex ? styles.active : ""}
+              `}
               type="button"
               key={key}
-              tabIndex={tabIndex + key + 1}
-              value={option}
+              value={option.value}
               ref={optionsRefs.current[key]}
-              onClick={() => {
-                setSelectedIndex(key);
-                setShow(false);
-                callback && callback(option);
-              }}
-              onKeyDown={() => {
-                setSelectedIndex(key);
-                setShow(false);
-                callback && callback(option);
-              }}
+              onClick={() => handleOptionClick(key, option)}
+              data-testid={`option-button-${key}`}
+              role="option"
+              aria-selected={key === selectedIndex}
             >
-              {option}
+              {option.label}
             </button>
           );
         })}
@@ -113,4 +89,4 @@ const Droplist: React.FC<DropListProps> = ({
   );
 };
 
-export default Droplist;
+export default DropList;

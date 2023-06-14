@@ -1,7 +1,7 @@
 {
   "compilerOptions": {
     "target": "es5",
-    "lib": ["dom", "dom.iterable", "esnext","es6",],
+    "lib": ["dom", "dom.iterable", "esnext", "es6"],
     "allowJs": true,
     "skipLibCheck": true,
     "strict": true,
@@ -21,17 +21,18 @@
     ],
     "baseUrl": ".",
     "paths": {
-      "@/*": ["./*"],
-      "@/components/*": ["src/components/*"],
-      "@/atoms/*": ["src/components/atoms/*"],
-      "@/molecules/*": ["src/components/molecules/*"],
-      "@/organisms/*": ["src/components/organisms/*"],
-      "@/templates/*": ["src/components/templates/*"],
-      "@/hooks/*": ["src/js/hooks/*"],
-      "@/context/*": ["src/js/context/*"],
-      "@/svg/*": ["src/assets/svg/*"],
-      "@/styles/*": ["src/styles/*"],
-      
+      "@components/*": ["src/components/*"],
+      "@atoms/*": ["src/components/atoms/*"],
+      "@assets/*": ["src/assets/*"],
+      "@api/*": ["src/pages/api/*"],
+      "@molecules/*": ["src/components/molecules/*"],
+      "@organisms/*": ["src/components/organisms/*"],
+      "@templates/*": ["src/components/templates/*"],
+      "@hooks/*": ["src/hooks/*"],
+      "@utils/*": ["src/utils/*"],
+      "@context/*": ["src/context/*"],
+      "@svg/*": ["src/assets/svg/*"],
+      "@styles/*": ["src/styles/*"]
     }
   },
   "include": ["next-env.d.ts", "**/*.ts", "**/*.tsx", ".next/types/**/*.ts"],

@@ -1,6 +1,7 @@
-//font-family: 'Lora', serif;
-// font-family: 'Inter', sans-serif;
-// font-family: 'Inconsolata', monospace;
+@use "@css/components/atoms/form/input.scss";
+@use "@css/components/atoms/text/text.scss";
+@import "@css/mixin/mixin.scss";
+@import "@css/utils/animation.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Inter&family=Lora&display=swap");
 
 :root {
@@ -9,7 +10,7 @@
   --clr-light-gray: rgb(117, 117, 117);
 
   --clr-primary-100: rgba(5, 5, 5);
-  --clr-primary-200: rgba(5, 31, 31);
+  --clr-primary-200: rgba(31, 31, 31);
   --clr-primary-300: rgba(45, 45, 45);
   --clr-primary-400: rgba(58, 58, 58);
   --clr-primary-500: rgba(117, 117, 117);
@@ -17,11 +18,11 @@
   --clr-primary-700: rgba(244, 244, 244);
   --clr-primary-800: rgba(255, 255, 255);
 
-  --font-size-xl: 4rem;
-  --font-size-lg: 1.5rem;
-  --font-size-m: 1.25rem;
-  --font-size-s: 1.125rem;
-  --font-size-xs: 0.875rem;
+  --font-size-xl: 4rem; // 64px
+  --font-size-lg: 1.5rem; // 24px
+  --font-size-m: 1.25rem; // 20px
+  --font-size-s: 1.125rem; // 18px
+  --font-size-xs: 0.875rem; // 14px
 
   --transition-xs: 0.3s;
   --transition-md: 0.5s;
@@ -29,7 +30,15 @@
   --z-index-100: 100;
   --z-index-200: 200;
 
-  --root-size: 46rem;
+  --root-size: 51rem;
+
+  @media screen and (max-width: 600px) {
+    --font-size-xl: 2rem;
+    --font-size-lg: 1.125rem;
+    --font-size-m: 1.125rem;
+    --font-size-s: 0.875rem;
+    --font-size-xs: 0.875rem;
+  }
 
   // NEXT.js default font
   // --font-mono: ui-monospace, Menlo, Monaco, "Cascadia Mono", "Segoe UI Mono",
@@ -45,6 +54,9 @@
     // DropList Color
     --background-dropList: var(--clr-primary-800);
     --color-dropList: var(--clr-primary-100);
+    --input-background: var(--clr-primary-700);
+    --input-text: var(--clr-primary-100);
+    --input-placeholder: var(--clr-primary-500);
   }
 
   [data-theme="dark"] {
@@ -52,48 +64,56 @@
     --color: var(--clr-primary-800);
     --shadow: 0px 5px 30px 0px rgba(164, 69, 237, 1);
     --dark-to-accent: var(--clr-accent);
+    --input-background: var(--clr-primary-700);
 
     // DropList Color
     --background-dropList: var(--clr-primary-400);
     --color-dropList: var(--clr-primary-800);
+    --input-background: var(--clr-primary-200);
+    --input-background: var(--clr-primary-200);
+    --input-placeholder: white;
   }
 }
 
-* {
+a {
+  color: var(--color);
+}
+
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-}
-
-label {
-  cursor: pointer;
 }
 
 html {
   height: 100%;
 }
 
+a {
+  text-decoration: none;
+  color: var(--color);
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
 body {
+  @include flex(column, "", center);
   height: 100%;
   background-color: var(--background);
   font-family: var(--font-family);
   color: var(--color);
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: flex-start;
-  line-height: 1.3;
-}
-
-p {
-  color: var(--color);
+  line-height: 1.5;
 }
 
 #__next {
-  background-color: var(--background);
-  max-width: var(--root-size);
   width: 100%;
   height: inherit;
+  background-color: var(--background);
+  @include flex(column, "", center);
 }
 
 main {
@@ -101,9 +121,31 @@ main {
 }
 
 .rootContainer {
-  display: flex;
-  max-width: var(--root-size);
+  @include flex(column);
+  padding: 0 2.5rem;
+  min-height: 100%;
+  width: min(100 - 1.5rem, 51rem);
+}
+
+label {
+  cursor: pointer;
+}
+
+.full_width {
   width: 100%;
+  max-width: 100%;
+}
+
+.hr_horizontal {
+  border: none;
+  background-color: var(--clr-primary-600);
+  height: 1px;
+}
+.hr_vertical {
+  border: none;
+  background-color: var(--clr-primary-600);
+  height: 1.5rem;
+  width: 1px;
 }
 
 .sr-only {
@@ -116,70 +158,4 @@ main {
   clip: rect(0, 0, 0, 0);
   white-space: nowrap;
   border: 0;
-}
-
-form {
-  background-color: var(--background);
-}
-
-/* clears the ‘X’ from Internet Explorer */
-input[type="search"]::-ms-clear {
-  display: none;
-  width: 0;
-  height: 0;
-}
-input[type="search"]::-ms-reveal {
-  display: none;
-  width: 0;
-  height: 0;
-}
-/* clears the ‘X’ from Chrome */
-input[type="search"]::-webkit-search-decoration,
-input[type="search"]::-webkit-search-cancel-button,
-input[type="search"]::-webkit-search-results-button,
-input[type="search"]::-webkit-search-results-decoration {
-  display: none;
-}
-
-h1 {
-  font-weight: 700;
-}
-
-.font_xl {
-  font-size: var(--font-size-xl);
-  line-height: 1.2;
-}
-.font_lg {
-  font-size: var(--font-size-lg);
-  line-height: 1.25;
-}
-.font_m {
-  font-size: var(--font-size-m);
-  line-height: 1.25;
-}
-.font_s {
-  font-size: var(--font-size-s);
-}
-.font_xs {
-  font-size: var(--font-size-xs);
-}
-
-.text_accent {
-  color: var(--clr-accent);
-}
-
-.text_gray {
-  color: var(--clr-light-gray);
-}
-
-.text_warning {
-  color: var(--clr-warning);
-}
-
-.bold {
-  font-weight: 900;
-}
-
-.italic {
-  font-style: italic;
 }

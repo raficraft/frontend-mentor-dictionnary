@@ -8,6 +8,7 @@ export function IconDictionary(props: SVGProps<SVGSVGElement>) {
       height="34"
       fill="none"
       viewBox="0 0 30 34"
+      {...props}
     >
       <path
         fill="#757575"
@@ -37,6 +38,7 @@ export function IconMoon(props: SVGProps<SVGSVGElement>) {
       height="22"
       fill="none"
       viewBox="0 0 22 22"
+      {...props}
     >
       <path
         stroke="currentColor"
@@ -57,6 +59,7 @@ export function IconArrowDown(props: SVGProps<SVGSVGElement>) {
       height="9"
       fill="none"
       viewBox="0 0 13 9"
+      {...props}
     >
       <path stroke="#A445ED" strokeWidth="1.5" d="m1 1 6 6 6-6" />
     </svg>
@@ -67,15 +70,16 @@ export function IconMagnify(props: SVGProps<SVGSVGElement>) {
   return (
     <svg
       xmlns="http://www.w3.org/2000/svg"
-      width="1rem"
-      height="1rem"
-      viewBox="0 0 24 24"
+      width="18"
+      height="18"
+      fill="none"
+      viewBox="0 0 18 18"
       {...props}
     >
       <path
-        fill="currentColor"
-        d="M9.5 3A6.5 6.5 0 0 1 16 9.5c0 1.61-.59 3.09-1.56 4.23l.27.27h.79l5 5l-1.5 1.5l-5-5v-.79l-.27-.27A6.516 6.516 0 0 1 9.5 16A6.5 6.5 0 0 1 3 9.5A6.5 6.5 0 0 1 9.5 3m0 2C7 5 5 7 5 9.5S7 14 9.5 14S14 12 14 9.5S12 5 9.5 5Z"
-      ></path>
+        fill="#A445ED"
+        d="M13.193 12.132a.75.75 0 0 0-1.06 1.061l1.06-1.06Zm2.827 4.949a.75.75 0 0 0 1.06-1.061l-1.06 1.06ZM2.952 12.377l.53-.53-.53.53Zm2.162 1.444-.287.693.287-.692Zm5.1 0 .288.693-.287-.692Zm2.163-1.444-.53-.53.53.53Zm1.444-2.162.693.287-.692-.287Zm-1.444-7.263-.53.53.53-.53Zm-.245 10.241 3.888 3.888 1.06-1.061-3.887-3.888-1.06 1.061ZM.25 7.664c0 .974.192 1.938.564 2.838L2.2 9.928a5.915 5.915 0 0 1-.45-2.264H.25Zm.564 2.838c.373.9.92 1.717 1.608 2.405l1.06-1.06A5.913 5.913 0 0 1 2.2 9.926l-1.386.575Zm1.608 2.405a7.415 7.415 0 0 0 2.405 1.607l.574-1.385a5.915 5.915 0 0 1-1.919-1.282l-1.06 1.06Zm2.405 1.607a7.41 7.41 0 0 0 2.837.565v-1.5a5.915 5.915 0 0 1-2.263-.45l-.574 1.385Zm2.837.565c.974 0 1.938-.192 2.838-.565l-.574-1.385a5.916 5.916 0 0 1-2.264.45v1.5Zm2.838-.565a7.414 7.414 0 0 0 2.405-1.607l-1.06-1.06a5.939 5.939 0 0 1-1.92 1.282l.575 1.385Zm2.405-1.607a7.414 7.414 0 0 0 1.607-2.405l-1.385-.574a5.914 5.914 0 0 1-1.282 1.918l1.06 1.061Zm1.607-2.405c.373-.9.565-1.864.565-2.838h-1.5c0 .777-.153 1.546-.45 2.264l1.385.574Zm.565-2.838a7.414 7.414 0 0 0-2.172-5.242l-1.06 1.06a5.914 5.914 0 0 1 1.732 4.182h1.5Zm-2.172-5.242A7.414 7.414 0 0 0 7.664.25v1.5c1.569 0 3.073.623 4.182 1.732l1.061-1.06ZM7.664.25a7.414 7.414 0 0 0-5.242 2.172l1.06 1.06A5.914 5.914 0 0 1 7.664 1.75V.25ZM2.422 2.422A7.414 7.414 0 0 0 .25 7.664h1.5c0-1.568.623-3.073 1.732-4.182l-1.06-1.06Z"
+      />
     </svg>
   );
 }
@@ -105,6 +109,7 @@ export function IconPlay(props: SVGProps<SVGSVGElement>) {
       height="21"
       fill="none"
       viewBox="0 0 21 21"
+      {...props}
     >
       <path
         fill="currentColor"
@@ -112,6 +117,44 @@ export function IconPlay(props: SVGProps<SVGSVGElement>) {
         d="M0 0v21l21-10.5L0 0Z"
         clipRule="evenodd"
       />
+    </svg>
+  );
+}
+
+export function IconExternalLink(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="none"
+        stroke="currentColor"
+        strokeLinecap="round"
+        strokeLinejoin="round"
+        strokeWidth="2"
+        d="M18 13v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V8a2 2 0 0 1 2-2h6m4-3h6v6m-11 5L21 3"
+      ></path>
+    </svg>
+  );
+}
+
+export function IconPause(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg
+      xmlns="http://www.w3.org/2000/svg"
+      width="1em"
+      height="1em"
+      viewBox="0 0 24 24"
+      {...props}
+    >
+      <path
+        fill="currentColor"
+        d="M2 6c0-1.886 0-2.828.586-3.414C3.172 2 4.114 2 6 2c1.886 0 2.828 0 3.414.586C10 3.172 10 4.114 10 6v12c0 1.886 0 2.828-.586 3.414C8.828 22 7.886 22 6 22c-1.886 0-2.828 0-3.414-.586C2 20.828 2 19.886 2 18V6Zm12 0c0-1.886 0-2.828.586-3.414C15.172 2 16.114 2 18 2c1.886 0 2.828 0 3.414.586C22 3.172 22 4.114 22 6v12c0 1.886 0 2.828-.586 3.414C20.828 22 19.886 22 18 22c-1.886 0-2.828 0-3.414-.586C14 20.828 14 19.886 14 18V6Z"
+      ></path>
     </svg>
   );
 }

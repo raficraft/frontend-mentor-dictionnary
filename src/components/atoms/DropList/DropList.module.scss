@@ -1,7 +1,8 @@
+@import "@css/mixin/mixin.scss";
+
 .dropList {
-  display: flex;
-  flex-direction: column;
   position: relative;
+  @include flex(column);
   cursor: pointer;
 
   button {
@@ -24,8 +25,7 @@
   position: absolute;
   top: calc(100% + 1rem);
   right: 0;
-  display: flex;
-  flex-direction: column;
+  @include flex(column);
   width: 183px;
   padding: 1.5rem;
   gap: 1rem;
@@ -38,11 +38,11 @@
   z-index: var(--z-index-200);
   cursor: pointer;
 
-  &[data-show="false"] {
+  &[data-open="false"] {
     display: none;
   }
 
-  &[data-show="true"] {
+  &[data-open="true"] {
     display: flex;
   }
 

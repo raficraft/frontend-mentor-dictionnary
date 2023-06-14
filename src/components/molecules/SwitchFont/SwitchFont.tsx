@@ -1,17 +1,24 @@
-import Droplist from "@/atoms/DropList/DropList";
+import { DropList } from "@atoms/index";
 
-const config = ["Sans-serif", "Serif", "Monospace"];
+const config = [
+  { label: "Sans-serif", value: "sans-serif" },
+  { label: "Serif", value: "serif" },
+  { label: "Monospace", value: "monospace" },
+];
 
 const changeFont = (font: string) => {
   const root = document.querySelector(":root");
-  document.body.style.setProperty("--font-family", font);
+  const selectedOption = config.find((option) => option.value === font);
+  if (selectedOption) {
+    document.body.style.setProperty("--font-family", selectedOption.value);
+  }
 };
 
 const SwitchFont = () => {
   return (
-    <Droplist
+    <DropList
       options={config}
-      callback={(font) => {
+      callback={(font: string) => {
         changeFont(font);
       }}
     />

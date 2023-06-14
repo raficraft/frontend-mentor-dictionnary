@@ -1,15 +1,6 @@
-import React, {
-  forwardRef,
-  useEffect,
-  useState,
-  useRef,
-  ReactNode,
-  Ref,
-  InputHTMLAttributes,
-} from "react";
+import React, { forwardRef, ReactNode, Ref, InputHTMLAttributes } from "react";
 import styles from "./Field.module.scss";
-import Input from "../../atoms/form/input/Input";
-import Error from "../../atoms/form/Error/Error";
+import { Input, Text } from "@atoms/index";
 
 interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
@@ -31,7 +22,9 @@ const Field = forwardRef(
           {svg ? <span className={styles.icon}>{svg}</span> : null}
           {reverse && children ? children : null}
         </div>
-        {<Error errorMessage={error} />}
+        <Text className={`text_warning text_s`} role="alert">
+          {error || ""}
+        </Text>
       </div>
     );
   }

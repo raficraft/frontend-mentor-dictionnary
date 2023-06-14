@@ -1,10 +1,11 @@
+@import "@css/mixin/mixin.scss";
+
 $width: 2.5rem;
 $height: 1.25rem;
 $spacing: 3px;
 
 .switchButton {
-  display: flex;
-  align-items: center;
+  @include flex(row, "", center);
   gap: 1.25rem;
   :has(.animate_switchTheme) {
     background-color: blue;
@@ -13,8 +14,7 @@ $spacing: 3px;
 
 .checkbox {
   position: relative;
-  display: flex;
-  align-items: center;
+  @include flex(row, "", center);
   width: $width;
   height: $height;
   background-color: var(--clr-primary-500);

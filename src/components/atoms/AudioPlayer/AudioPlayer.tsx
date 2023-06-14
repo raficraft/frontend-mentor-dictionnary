@@ -1,35 +1,16 @@
-import { IconPlay } from "@/src/assets/svg/icons";
 import styles from "./AudioPlayer.module.scss";
-import { useState, useRef } from "react";
-import { useTheme } from "@/src/js/context/useTheme";
+import useAudioPlayer from "../../../hooks/useAudioPlayer/useAudioPlayer";
+import { useTheme } from "@context/useTheme";
+import { IconPlay, IconPause } from "@assets/svg/icons";
 
 type AudioPlayerProps = {
   src: string | null;
 };
 
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
-  const [playing, setPlaying] = useState(false);
-  const audioRef = useRef<HTMLAudioElement>(null);
-
+  const { playing, pause, pauseAudio, playAudio, handleEnded, audioRef } =
+    useAudioPlayer(src);
   const { theme } = useTheme();
-
-  const togglePlay = () => {
-    const audio = audioRef.current;
-    console.log("play");
-
-    if (audio) {
-      if (playing) {
-        audio.pause();
-      } else {
-        audio.play();
-      }
-      setPlaying(!playing);
-    }
-  };
-
-  const handleEnded = () => {
-    setPlaying(false);
-  };
 
   return (
     <>
@@ -39,16 +20,20 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
           src={src}
           onEnded={handleEnded}
           data-playing={playing}
+          data-pause={pause}
+          aria-label="Audio Player"
         />
       )}
       <button
-        onClick={togglePlay}
+        onClick={!pause ? playAudio : pauseAudio}
         type="button"
         className={styles.btn}
         data-theme={theme}
-        {...(src ? {} : { disabled: true })} // utilisez `undefined` pour désactiver la propriété `disabled` si `src` est truthy
+        data-testid="audio-player-button"
+        aria-label={!pause ? "Play Audio" : "Pause Audio"}
       >
-        {<IconPlay />}
+        {!pause && <IconPlay data-testid="icon-play" />}
+        {pause && <IconPause data-testid="icon-pause" />}
       </button>
     </>
   );

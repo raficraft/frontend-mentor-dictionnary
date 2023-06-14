@@ -1,41 +1,27 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Inter } from "next/font/google";
-import SearchWord from "@/components/organisms/form/SearchWord/SearchWord";
-import AudioPlayer from "@/components/atoms/AudioPlayer/AudioPlayer";
-import styles from "../styles/pages/Home.module.scss";
+import { Dictionnary, ErrorApi, SearchWord } from "@organisms/index";
+import { useDictionarySearch } from "@hooks/index";
+import { Loading } from "@atoms/index";
+import styles from "@styles/pages/Home.module.scss";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 const inter = Inter({ subsets: ["latin"] });
 
-console.log(inter);
-
 export default function Home() {
-  const [result, setResult] = useState<any | undefined>(false);
-
-  const fetchData = async (word: string) => {
-    try {
-      const response = await fetch(`/api/dictionary?word=${word}`);
-      const data: any = await response.json();
-
-      setResult(data[0]);
-    } catch (error) {
-      console.error(error);
-    }
-  };
-
-  const getAudio = () => {
-    if (result.phonetics.length === 0) {
-      return <AudioPlayer src={null} />;
-    } else {
-      const valuesArray = Object.values(result.phonetics);
-      const src: any = valuesArray[valuesArray.length - 1] as string;
-      return <AudioPlayer src={src.audio} />;
-    }
-  };
+  const { result, error, fetchData, loading } = useDictionarySearch();
+  const [isEmptyField, setIsEmptyField] = useState(false);
+  const mainRef = useRef(null);
 
   useEffect(() => {
-    console.log(result);
+    if (!result) {
+      setIsEmptyField(true);
+    } else {
+      setIsEmptyField(false);
+    }
   }, [result]);
+
   return (
     <>
       <Head>
@@ -44,62 +30,15 @@ export default function Home() {
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      {/* <HomePage /> */}
       <SearchWord callApi={fetchData} />
+
       <main className={styles.main}>
-        {result && !result.tiltle ? (
-          <>
-            <header>
-              <div className={styles.title}>
-                <h1 className="font_xl">{result.word}</h1>
-                <p className="font_lg text_accent">{result.phonetic}</p>
-              </div>
-              <div>{getAudio()}</div>
-            </header>
-            {Object.keys(result.meanings).map((_, key) => {
-              return (
-                <React.Fragment key={`meaning-${key}`}>
-                  <div className={styles.separator}>
-                    <p className="bold font_lg italic">
-                      {result.meanings[key].partOfSpeech}
-                    </p>
-                  </div>
-                  <section className={styles.meanings}>
-                    <h3
-                      className="text_gray"
-                      style={{
-                        fontWeight: "lighter",
-                      }}
-                    >
-                      Meaning
-                    </h3>
-                    <ul className={styles.list}>
-                      {Object.keys(result.meanings[key].definitions).map(
-                        (_, keys) => {
-                          return (
-                            <li key={`definition-${keys}`}>
-                              {
-                                result.meanings[key].definitions[keys]
-                                  .definition
-                              }
-                            </li>
-                          );
-                        }
-                      )}
-                    </ul>
-                    <span className={styles.footer}>
-                      <p>Synonyms</p>
-                      <p className="text_accent bold">
-                        {result.meanings[key].synonyms[0]}
-                      </p>
-                    </span>
-                  </section>
-                </React.Fragment>
-              );
-            })}
-          </>
-        ) : (
-          <>Oups aucun résultat</>
+        {loading && <Loading />}
+        {error?.message === "No Definitions found" &&
+          !isEmptyField &&
+          !loading && <ErrorApi />}
+        {result && !error && !isEmptyField && !loading && (
+          <Dictionnary dictionnary={result} />
         )}
       </main>
     </>

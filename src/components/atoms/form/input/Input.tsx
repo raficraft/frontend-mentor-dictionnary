@@ -1,15 +1,15 @@
-import { forwardRef, ForwardedRef, InputHTMLAttributes } from "react";
-import styles from "../Form.module.scss";
+import React, { forwardRef, ForwardedRef, InputHTMLAttributes } from "react";
 
-interface Props extends InputHTMLAttributes<HTMLInputElement> {
-  inputRef?: ForwardedRef<HTMLInputElement>;
-}
+interface InputProps extends InputHTMLAttributes<HTMLInputElement> {}
 
 const Input = forwardRef(function Input(
-  { inputRef, ...rest }: Props,
+  props: InputProps,
   ref: ForwardedRef<HTMLInputElement>
 ) {
-  return <input ref={inputRef} {...rest} className={styles.input} />;
+  return <input ref={ref} {...props} />;
 });
 
+Input.displayName = "Input";
+
+export type { InputProps };
 export default Input;
