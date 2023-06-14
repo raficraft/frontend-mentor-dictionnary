@@ -1,16 +1,18 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
+import React, { useEffect, useRef, useState } from "react";
 import { Inter } from "next/font/google";
 import { Dictionnary, ErrorApi, SearchWord } from "@organisms/index";
 import { useDictionarySearch } from "@hooks/index";
 import { Loading } from "@atoms/index";
 import styles from "@styles/pages/Home.module.scss";
+import { SwitchTransition, CSSTransition } from "react-transition-group";
 
 const inter = Inter({ subsets: ["latin"] });
 
 export default function Home() {
   const { result, error, fetchData, loading } = useDictionarySearch();
   const [isEmptyField, setIsEmptyField] = useState(false);
+  const mainRef = useRef(null);
 
   useEffect(() => {
     if (!result) {
@@ -29,6 +31,7 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SearchWord callApi={fetchData} />
+
       <main className={styles.main}>
         {loading && <Loading />}
         {error?.message === "No Definitions found" &&

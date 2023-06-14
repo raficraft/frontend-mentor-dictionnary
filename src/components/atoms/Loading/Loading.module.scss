@@ -5,7 +5,21 @@ $size: 1rem;
 .loading {
   @include flexCenter(column);
   min-height: 312px;
-  background-color: red;
+  opacity: 0;
+  animation: appear 0.5s forwards;
+  transition: 0.5s;
+}
+
+@keyframes appear {
+  from {
+    opacity: 0;
+    transform: translateY(-10px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dotsContainer {
