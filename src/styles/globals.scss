@@ -74,6 +74,10 @@
   }
 }
 
+a {
+  color: var(--color);
+}
+
 *,
 *::before,
 *::after {
@@ -88,7 +92,11 @@ html {
 
 a {
   text-decoration: none;
-  color: var(--clr-primary-100);
+  color: var(--color);
+}
+
+a:hover {
+  text-decoration: underline;
 }
 
 body {

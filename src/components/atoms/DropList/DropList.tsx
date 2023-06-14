@@ -9,16 +9,14 @@ interface SVGProps {
   position: "left" | "right";
 }
 
-interface DropListProps {
+interface DropListProps extends React.HTMLProps<HTMLButtonElement> {
   options: Option[];
   callback?: (value: any) => void;
-  tabIndex?: number;
   svg?: SVGProps;
 }
 
 const DropList: React.FC<DropListProps> = ({
   options,
-  tabIndex = 1,
   callback,
 }: DropListProps): JSX.Element | null => {
   const {
@@ -46,7 +44,6 @@ const DropList: React.FC<DropListProps> = ({
       <button
         className={styles.select}
         type="button"
-        tabIndex={tabIndex}
         value={options[selectedIndex].value}
         onClick={() => {
           setOpen(!open);

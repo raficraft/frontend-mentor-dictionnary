@@ -22,11 +22,9 @@ const Field = forwardRef(
           {svg ? <span className={styles.icon}>{svg}</span> : null}
           {reverse && children ? children : null}
         </div>
-        {error && (
-          <Text className={`text_warning text_s`} role="alert">
-            {error}
-          </Text>
-        )}
+        <Text className={`text_warning text_s`} role="alert">
+          {error || ""}
+        </Text>
       </div>
     );
   }

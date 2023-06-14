@@ -21,7 +21,6 @@ const SwitchButton = forwardRef<HTMLInputElement, SwitchButtonProps>(
           id="switchTheme"
           name="switchTheme"
           type="checkbox"
-          tabIndex={2}
           onChange={callback}
           ref={ref}
           {...props}

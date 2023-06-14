@@ -40,7 +40,7 @@ const renderDropList = () => {
 };
 
 const useCase: UseCase = {
-  openListOnClick: async (selectButton, optionsList) => {
+  openListOnClick: async (selectButton) => {
     fireEvent.click(selectButton);
 
     await waitFor(() => {

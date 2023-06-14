@@ -4,6 +4,8 @@ $size: 1rem;
 
 .loading {
   @include flexCenter(column);
+  min-height: 312px;
+  background-color: red;
 }
 
 .dotsContainer {

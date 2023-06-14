@@ -39,11 +39,10 @@ function useDropList({
   );
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
-    event.preventDefault();
-
     switch (event.key) {
       case "Enter":
       case "Espace":
+        event.preventDefault();
         setOpen(!open);
         if (open) {
           const option = options[selectedIndex].value;
@@ -69,6 +68,7 @@ function useDropList({
 
       case "Tab":
         if (open) {
+          event.preventDefault();
           const direction = event.shiftKey ? -1 : 1;
           const index =
             (selectedIndex + direction + options.length) % options.length;
