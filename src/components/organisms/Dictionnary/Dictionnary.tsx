@@ -4,13 +4,6 @@ import styles from "./Dictionnary.module.scss";
 import DictionaryApiResult from "@api/types";
 import Link from "next/link";
 import { IconExternalLink } from "@assets/svg/icons";
-
-import {
-  SwitchTransition,
-  CSSTransition,
-  TransitionGroup,
-} from "react-transition-group";
-
 interface DictionnaryProps {
   dictionnary: DictionaryApiResult;
 }
