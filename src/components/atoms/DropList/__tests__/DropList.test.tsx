@@ -133,9 +133,12 @@ describe("When the dropList button is focused and the ArrowDown key is pressed",
   });
 });
 
-// List Open
+// is Open
 
 describe("When the dropList is open", () => {
+  afterEach(() => {
+    mockCallback.mockClear();
+  });
   // Use Click
   describe("When an option is clicked", () => {
     test("Should execute the callback function", async () => {
@@ -158,6 +161,54 @@ describe("When the dropList is open", () => {
 
       await waitFor(() => {
         expect(selectButton).toHaveAttribute("aria-expanded", "false");
+      });
+    });
+  });
+
+  // Choose an option and press Enter or Space keys
+
+  describe("When user select an option and press Enter keys", () => {
+    test("Should toggle the option list and call the callback function if open", async () => {
+      const { selectButton, optionsList } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      fireEvent.keyDown(selectButton, { key: "Enter" });
+
+      await waitFor(() => {
+        expect(selectButton).toHaveAttribute("aria-expanded", "false");
+        expect(mockCallback).toHaveBeenCalled();
+        expect(mockCallback).toHaveBeenCalledWith(options[0].value);
+      });
+    });
+  });
+
+  describe("When user select an option and press Espace keys", () => {
+    test("Should toggle the option list and call the callback function if open", async () => {
+      const { selectButton, optionsList } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      fireEvent.keyDown(selectButton, { key: "Espace" });
+
+      await waitFor(() => {
+        expect(selectButton).toHaveAttribute("aria-expanded", "false");
+        expect(mockCallback).toHaveBeenCalled();
+        expect(mockCallback).toHaveBeenCalledWith(options[0].value);
+      });
+    });
+  });
+
+  // Select An option and press an another keys
+
+  describe("When a key other than the specified keys is pressed", () => {
+    test("Should not modify the state", async () => {
+      const { selectButton, optionsList } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      fireEvent.keyDown(selectButton, { key: "SomeOtherKey" });
+
+      await waitFor(() => {
+        expect(selectButton).toHaveAttribute("aria-expanded", "true");
+        expect(mockCallback).not.toHaveBeenCalled();
       });
     });
   });

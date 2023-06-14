@@ -50,7 +50,7 @@ describe("ThemeProvider", () => {
     expect(themeElement.textContent).toBe("light");
   });
 
-  it("should render children components with the correct theme", () => {
+  test("should render children components with the correct theme", () => {
     const ChildComponent = () => {
       const { theme } = useTheme();
       return <div data-testid="child-component">{theme}</div>;
