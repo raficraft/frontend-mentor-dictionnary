@@ -1,5 +1,10 @@
-import React, { useState, useRef, createRef, RefObject } from "react";
-import styles from "./DropList.module.scss";
+import React, {
+  useState,
+  useRef,
+  createRef,
+  RefObject,
+  useEffect,
+} from "react";
 import { useClickOutside } from "@hooks/index";
 
 export interface Option {
@@ -35,9 +40,15 @@ function useDropList({
 
   const handleKeyDown = (event: React.KeyboardEvent<HTMLButtonElement>) => {
     event.preventDefault();
+
     switch (event.key) {
       case "Enter":
+      case "Espace":
         setOpen(!open);
+        if (open) {
+          const option = options[selectedIndex].value;
+          callback && callback(option);
+        }
         break;
 
       case "Escape":
@@ -46,29 +57,26 @@ function useDropList({
 
       case "ArrowUp":
       case "ArrowDown":
-        !open && setOpen(true);
+        if (!open) {
+          setOpen(true);
+        }
+
+        const direction = event.key === "ArrowUp" ? -1 : 1;
+        const index =
+          (selectedIndex + direction + options.length) % options.length;
+        setSelectedIndex(index);
         break;
 
       case "Tab":
         if (open) {
+          const direction = event.shiftKey ? -1 : 1;
           const index =
-            selectedIndex + 1 >= options.length ? 0 : selectedIndex + 1;
+            (selectedIndex + direction + options.length) % options.length;
           setSelectedIndex(index);
-          callback && callback(options[index].value);
         }
         break;
 
       default:
-        if (open) {
-          if (event.shiftKey && event.key === "Tab") {
-            const index =
-              selectedIndex + 1 < options.length
-                ? options.length - 1
-                : selectedIndex - 1;
-            setSelectedIndex(index);
-            callback && callback(options[index].value);
-          }
-        }
         break;
     }
   };

@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import styles from "./DropList.module.scss";
 import { IconArrowDown } from "@assets/svg/icons";
 import useDropList, { Option } from "@hooks/useDropList/UseDropList";
@@ -17,10 +17,10 @@ interface DropListProps {
 }
 
 const DropList: React.FC<DropListProps> = ({
-  options = [],
+  options,
   tabIndex = 1,
   callback,
-}: DropListProps): JSX.Element => {
+}: DropListProps): JSX.Element | null => {
   const {
     selectedIndex,
     open,
@@ -30,6 +30,16 @@ const DropList: React.FC<DropListProps> = ({
     handleOptionClick,
     optionsRefs,
   } = useDropList({ options, callback });
+
+  useEffect(() => {
+    if (options.length === 0) {
+      console.warn("Aucune option n'a été fournie pour DropList.");
+    }
+  }, [options]);
+
+  if (options.length === 0) {
+    return null;
+  }
 
   return (
     <div ref={refOutsideClick} className={styles.dropList}>
@@ -43,6 +53,9 @@ const DropList: React.FC<DropListProps> = ({
         }}
         onKeyDown={handleKeyDown}
         data-testid="select-button"
+        aria-haspopup="listbox"
+        aria-expanded={open}
+        aria-label="Select an option"
       >
         {options[selectedIndex].label}
         <IconArrowDown />
@@ -51,21 +64,24 @@ const DropList: React.FC<DropListProps> = ({
         className={styles.optionsList}
         data-open={open}
         data-testid="options-list"
+        role="listbox"
+        aria-multiselectable={false}
       >
         {options.map((option, key) => {
           return (
             <button
               className={`
-                  ${styles.option} 
-                  ${key === selectedIndex ? styles.active : ""}
-                `}
+                ${styles.option} 
+                ${key === selectedIndex ? styles.active : ""}
+              `}
               type="button"
               key={key}
               value={option.value}
               ref={optionsRefs.current[key]}
               onClick={() => handleOptionClick(key, option)}
-              onKeyDown={() => handleOptionClick(key, option)}
               data-testid={`option-button-${key}`}
+              role="option"
+              aria-selected={key === selectedIndex}
             >
               {option.label}
             </button>

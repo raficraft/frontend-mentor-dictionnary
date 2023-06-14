@@ -7,9 +7,10 @@ interface UseCase {
     optionsList: HTMLElement
   ) => Promise<void>;
 
-  openListOnEnterKeyPress: (
+  openListOnKeyPress: (
     selectButton: HTMLButtonElement,
-    optionsList: HTMLElement
+    optionsList: HTMLElement,
+    key: string
   ) => Promise<void>;
 }
 
@@ -20,13 +21,20 @@ const options = [
   { label: "Monospace", value: "monospace" },
 ];
 
+const selector = {
+  select: "select-button",
+  optionsList: "options-list",
+  firstOptions: "option-button-0",
+  secondOption: "option-button-1",
+};
+
 const renderDropList = () => {
   const { getByTestId } = render(
     <DropList options={options} callback={mockCallback} />
   );
 
-  const selectButton = getByTestId("select-button") as HTMLButtonElement;
-  const optionsList = getByTestId("options-list") as HTMLElement;
+  const selectButton = getByTestId(selector.select) as HTMLButtonElement;
+  const optionsList = getByTestId(selector.optionsList) as HTMLElement;
 
   return { selectButton, optionsList, getByTestId };
 };
@@ -36,13 +44,13 @@ const useCase: UseCase = {
     fireEvent.click(selectButton);
 
     await waitFor(() => {
-      expect(optionsList).toHaveAttribute("data-open", "true");
+      expect(selectButton).toHaveAttribute("aria-expanded", "true");
     });
   },
 
-  openListOnEnterKeyPress: async (selectButton, optionsList) => {
+  openListOnKeyPress: async (selectButton, optionsList, key) => {
     fireEvent.focus(selectButton);
-    fireEvent.keyDown(selectButton, { key: "Enter" });
+    fireEvent.keyDown(selectButton, { key: key });
 
     await waitFor(() => {
       expect(optionsList).toHaveAttribute("data-open", "true");
@@ -50,71 +58,189 @@ const useCase: UseCase = {
   },
 };
 
-test("executes the callback function on option click", async () => {
-  const { getByTestId } = renderDropList();
+// Render null
 
-  fireEvent.click(getByTestId("option-button-1"));
+describe("DropList", () => {
+  test("Should renders warning message when options are not provided", () => {
+    // Suppress console.warn output during the test
+    console.warn = jest.fn();
 
-  await waitFor(() => {
-    expect(mockCallback).toHaveBeenCalledWith(options[1].value);
+    render(<DropList options={[]} />);
+
+    expect(console.warn).toHaveBeenCalledWith(
+      "Aucune option n'a été fournie pour DropList."
+    );
+  });
+
+  test("Should returns null when options are not provided", () => {
+    const { container } = render(<DropList options={[]} />);
+
+    expect(container.firstChild).toBeNull();
   });
 });
 
-test("toggles the options list on select button click", async () => {
-  const { selectButton, optionsList } = renderDropList();
+// Render
 
-  expect(optionsList).toHaveAttribute("data-open", "false");
+describe("When the Droplist component is loaded with its expected props", () => {
+  test("Should be render correctly", () => {
+    const { selectButton, getByTestId } = renderDropList();
 
-  fireEvent.click(selectButton);
+    expect(selectButton).toBeInTheDocument();
 
-  await waitFor(() => {
-    expect(optionsList).toHaveAttribute("data-open", "true");
-  });
-
-  fireEvent.click(selectButton);
-
-  await waitFor(() => {
-    expect(optionsList).toHaveAttribute("data-open", "false");
-  });
-});
-
-test("closes the options list on Enter key press", async () => {
-  const { getByTestId, selectButton, optionsList } = renderDropList();
-
-  expect(optionsList).toHaveAttribute("data-open", "false");
-
-  fireEvent.click(selectButton);
-
-  await waitFor(() => {
-    expect(optionsList).toHaveAttribute("data-open", "true");
-  });
-
-  fireEvent.keyDown(getByTestId("option-button-1"), { key: "Enter" });
-
-  await waitFor(() => {
-    expect(optionsList).toHaveAttribute("data-open", "false");
+    // Vérifie que les options sont affichées
+    options.forEach((option, index) => {
+      const optionButton = getByTestId(`option-button-${index}`);
+      expect(optionButton).toBeInTheDocument();
+      expect(optionButton).toHaveTextContent(option.label);
+    });
   });
 });
 
-test("opens list on click", () => {
-  const { selectButton, optionsList } = renderDropList();
-  useCase.openListOnClick(selectButton, optionsList);
+// Open List
+
+describe("When dropList button is clicked", () => {
+  test("Should open the list of options", async () => {
+    const { selectButton, optionsList } = renderDropList();
+    useCase.openListOnClick(selectButton, optionsList);
+  });
 });
 
-test("opens list on Enter key press", () => {
-  const { selectButton, optionsList } = renderDropList();
-  useCase.openListOnEnterKeyPress(selectButton, optionsList);
+describe("When the dropList button is focused and the Enter key is pressed", () => {
+  test("Should open the list of options", async () => {
+    const { selectButton, optionsList } = renderDropList();
+    useCase.openListOnKeyPress(selectButton, optionsList, "Enter");
+  });
 });
 
-test("changes options on Tab key press when options list is open", async () => {
-  const { selectButton, optionsList } = renderDropList();
+describe("When the dropList button is focused and the Escape key is pressed", () => {
+  test("Should open the list of options", async () => {
+    const { selectButton, optionsList } = renderDropList();
+    useCase.openListOnKeyPress(selectButton, optionsList, "Escape");
+  });
+});
 
-  useCase.openListOnEnterKeyPress(selectButton, optionsList);
+describe("When the dropList button is focused and the ArrowUp key is pressed", () => {
+  test("Should open the list of options", async () => {
+    const { selectButton, optionsList } = renderDropList();
+    useCase.openListOnKeyPress(selectButton, optionsList, "ArrowUp");
+  });
+});
 
-  fireEvent.keyDown(selectButton, { key: "Tab" });
+describe("When the dropList button is focused and the ArrowDown key is pressed", () => {
+  test("Should open the list of options", async () => {
+    const { selectButton, optionsList } = renderDropList();
+    useCase.openListOnKeyPress(selectButton, optionsList, "ArrowDown");
+  });
+});
 
-  await waitFor(() => {
-    expect(optionsList).toHaveAttribute("data-open", "true");
-    expect(selectButton).toHaveValue(options[1].value); // Vérifiez la nouvelle option sélectionnée
+// List Open
+
+describe("When the dropList is open", () => {
+  // Use Click
+  describe("When an option is clicked", () => {
+    test("Should execute the callback function", async () => {
+      const { selectButton, optionsList, getByTestId } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      fireEvent.click(getByTestId(selector.secondOption));
+
+      await waitFor(() => {
+        expect(mockCallback).toHaveBeenCalled();
+        expect(mockCallback).toHaveBeenCalledWith(options[1].value);
+      });
+    });
+
+    test("Should close the list of options", async () => {
+      const { selectButton, optionsList, getByTestId } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      fireEvent.click(getByTestId(selector.secondOption));
+
+      await waitFor(() => {
+        expect(selectButton).toHaveAttribute("aria-expanded", "false");
+      });
+    });
+  });
+
+  // Use Tab for navigate for navigate on the option
+
+  describe("When the tab key is pressed once", () => {
+    test("should focus the next option", () => {
+      const { selectButton, optionsList, getByTestId } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+      fireEvent.keyDown(selectButton, { key: "Tab" });
+
+      const element = getByTestId(selector.secondOption);
+      expect(element).toHaveAttribute("aria-selected", "true");
+    });
+  });
+
+  describe("when the user presses the tab key once more than the number of options", () => {
+    test("should loop through the list of options and return to the first option", () => {
+      const { selectButton, optionsList, getByTestId } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      for (let i = 0; i < options.length; i++) {
+        fireEvent.keyDown(selectButton, { key: "Tab" });
+      }
+
+      const element = getByTestId(selector.firstOptions);
+      expect(element).toHaveAttribute("aria-selected", "true");
+    });
+  });
+
+  // Use shift + tab for navigate on the option
+
+  describe("when the user presses shift + tab", () => {
+    test("Should navigate to the previous option with Shift + Tab", () => {
+      const { selectButton, optionsList } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      fireEvent.keyDown(selectButton, { key: "Tab", shiftKey: true });
+
+      const expectedIndex = (options.length - 1) % options.length;
+      const expectedLabel = options[expectedIndex].label;
+
+      expect(selectButton).toHaveAttribute("aria-expanded", "true");
+      expect(selectButton).toHaveTextContent(expectedLabel);
+    });
+  });
+
+  // Close list
+
+  describe("when the user presses Escape", () => {
+    test("Should close the option list", () => {
+      const { selectButton, optionsList } = renderDropList();
+      useCase.openListOnClick(selectButton, optionsList);
+
+      fireEvent.keyDown(selectButton, { key: "Escape" });
+
+      expect(selectButton).toHaveAttribute("aria-expanded", "false");
+    });
+  });
+
+  describe("When the user clicks outside the list", () => {
+    test("Should close the option list", async () => {
+      const { getByTestId } = render(
+        <div>
+          <DropList options={options} callback={mockCallback} />
+          <span data-testid="outside"> Outside the drop list </span>
+        </div>
+      );
+
+      const selectButton = getByTestId(selector.select) as HTMLButtonElement;
+
+      fireEvent.click(selectButton);
+
+      await waitFor(() => {
+        expect(selectButton).toHaveAttribute("aria-expanded", "true");
+      });
+
+      fireEvent.click(getByTestId("outside"));
+
+      await waitFor(() => {
+        expect(selectButton).toHaveAttribute("aria-expanded", "false");
+      });
+    });
   });
 });

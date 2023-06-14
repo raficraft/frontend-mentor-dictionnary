@@ -74,7 +74,9 @@
   }
 }
 
-* {
+*,
+*::before,
+*::after {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -99,10 +101,10 @@ body {
 }
 
 #__next {
-  max-width: var(--root-size);
   width: 100%;
   height: inherit;
   background-color: var(--background);
+  @include flex(column, "", center);
 }
 
 main {
@@ -113,11 +115,7 @@ main {
   @include flex(column);
   padding: 0 2.5rem;
   min-height: 100%;
-  max-width: var(--root-size);
-  width: 100%;
-  @media screen and (max-width: 375px) {
-    padding: 0 1.5rem;
-  }
+  width: min(100 - 1.5rem, 51rem);
 }
 
 label {

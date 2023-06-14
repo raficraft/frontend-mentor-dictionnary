@@ -22,12 +22,6 @@ const SearchWord: React.ForwardRefRenderFunction<
         pattern: {
           message: "You can only use alphabetic characters",
         },
-        minLength: {
-          message: "Two characters minimum",
-        },
-        maxLength: {
-          message: "32 character limit reached",
-        },
       },
     },
   });
@@ -38,32 +32,38 @@ const SearchWord: React.ForwardRefRenderFunction<
     if (validateForm(event)) {
       callApi(dataForm.search);
     } else {
-      console.error("submit failed", errors);
       callApi(dataForm.search);
     }
   };
 
-  const handleChange = debounce((event) => {
-    event.preventDefault();
-    const searchValue = event.target.value;
-    if (validateField(event)) {
-      callApi(searchValue);
-    } else {
-      console.error("submit failed", errors);
-      callApi(searchValue);
-    }
-  }, 300);
+  const handleChange = debounce(
+    (event: React.ChangeEvent<HTMLInputElement>) => {
+      event.preventDefault();
+      const searchValue = event.target.value;
+      if (validateField(event)) {
+        callApi(searchValue);
+      } else {
+        callApi(searchValue);
+      }
+    },
+    300
+  );
 
   return (
-    <form className={styles.form} onSubmit={handleSubmit} noValidate ref={ref}>
+    <form
+      className={styles.form}
+      onSubmit={handleSubmit}
+      noValidate
+      ref={ref}
+      role="form"
+    >
       <Field
         type="search"
         placeholder="Search for any word"
         name="search"
         required
-        minLength={2}
         maxLength={32}
-        pattern="^[a-zA-ZÀ-ÿ ]{2,32}$"
+        pattern="^[a-zA-ZÀ-ÿ ]+$"
         onChange={handleChange}
         error={errors.search}
         className={`input ${errors.search ? "input_invalid" : ""}`}

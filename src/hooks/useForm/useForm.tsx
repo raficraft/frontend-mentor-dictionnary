@@ -151,7 +151,10 @@ const useForm = ({ fields = {} }: UseFormOptions): UseFormReturn => {
           validityLabel = key;
       }
 
-      if (element.validity[validityLabel as keyof ValidityState]) {
+      if (
+        element.validity &&
+        element.validity[validityLabel as keyof ValidityState]
+      ) {
         const errorMessage = field[key]?.message || element.validationMessage;
         const callback = field[key]?.callback;
         if (callback) callback();

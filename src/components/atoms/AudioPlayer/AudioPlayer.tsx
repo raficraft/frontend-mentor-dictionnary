@@ -21,7 +21,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
           onEnded={handleEnded}
           data-playing={playing}
           data-pause={pause}
-          data-testid="audio"
+          aria-label="Audio Player"
         />
       )}
       <button
@@ -30,6 +30,7 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
         className={styles.btn}
         data-theme={theme}
         data-testid="audio-player-button"
+        aria-label={!pause ? "Play Audio" : "Pause Audio"}
       >
         {!pause && <IconPlay data-testid="icon-play" />}
         {pause && <IconPause data-testid="icon-pause" />}
