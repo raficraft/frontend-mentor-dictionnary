@@ -1,8 +1,8 @@
-import AudioPlayer from "./AudioPlayer/AudioPlayer";
-import DropList from './DropList/DropList';
-import Text from './Text/Text';
-import Loading from "./Loading/Loading";
-import SwitchButton from './SwitchButton/SwitchButton';
-import Input from './Input/Input';
+import AudioPlayer from "@atoms/AudioPlayer/AudioPlayer";
+import DropList from '@atoms/DropList/DropList';
+import Text from '@atoms/Text/Text';
+import Loading from "@atoms/Loading/Loading";
+import SwitchButton from '@atoms/Form/SwitchButton/SwitchButton';
+import Input from '@atoms/Form/Input/Input';
 
 export { AudioPlayer, DropList, Input, SwitchButton, Text, Loading };
