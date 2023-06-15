@@ -124,7 +124,11 @@ main {
   @include flex(column);
   padding: 0 2.5rem;
   min-height: 100%;
-  width: min(100% - 1.5rem, 51rem);
+  max-width: 51rem;
+  width: 100%;
+  @media screen and (max-width: 600px) {
+    max-width: 100%;
+  }
 }
 
 label {
