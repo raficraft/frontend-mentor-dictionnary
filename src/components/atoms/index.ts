@@ -1,7 +1,8 @@
 import AudioPlayer from "./AudioPlayer/AudioPlayer";
 import DropList from './DropList/DropList';
-import SwitchButton from './form/SwitchButton/SwitchButton';
 import Text from './Text/Text';
 import Loading from "./Loading/Loading";
+import SwitchButton from './Form/SwitchButton/SwitchButton';
+import Input from './Form/Input/Input';
 
-export { AudioPlayer, DropList, SwitchButton, Text, Loading };
+export { AudioPlayer, DropList, Input, SwitchButton, Text, Loading };

@@ -1,7 +1,6 @@
 import React, { forwardRef, ReactNode, Ref, InputHTMLAttributes } from "react";
 import styles from "./Field.module.scss";
-import { Text } from "@atoms/index";
-import Input from "../../atoms/form/Input/Input";
+import { Input, Text } from "@atoms/index";
 
 interface FieldProps extends InputHTMLAttributes<HTMLInputElement> {
   children?: ReactNode;
