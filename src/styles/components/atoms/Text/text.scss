@@ -1,24 +1,24 @@
 .text_xl {
-  font-size: var(--font-size-xl);
+  font-size: var(--fs-500);
   line-height: 1.2;
 }
 
 .text_lg {
-  font-size: var(--font-size-lg);
+  font-size: var(--fs-400);
   line-height: 1.25;
 }
 
 .text_m {
-  font-size: var(--font-size-m);
+  font-size: var(--fs-300);
   line-height: 1.25;
 }
 
 .text_s {
-  font-size: var(--font-size-s);
+  font-size: var(--fs-200);
 }
 
 .text_xs {
-  font-size: var(--font-size-xs);
+  font-size: var(--fs-100);
 }
 
 .text_accent {

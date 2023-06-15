@@ -1,18 +1,16 @@
 import Head from "next/head";
-import React, { useEffect, useRef, useState } from "react";
-import { Inter } from "next/font/google";
+import React, { useEffect, useState } from "react";
 import { Dictionnary, ErrorApi, SearchWord } from "@organisms/index";
 import { useDictionarySearch } from "@hooks/index";
 import { Loading } from "@atoms/index";
 import styles from "@styles/pages/Home.module.scss";
-import { SwitchTransition, CSSTransition } from "react-transition-group";
+import type { InferGetStaticPropsType, GetStaticProps } from "next";
 
-const inter = Inter({ subsets: ["latin"] });
-
-export default function Home() {
-  const { result, error, fetchData, loading } = useDictionarySearch();
+export default function Home({
+  dico,
+}: InferGetStaticPropsType<typeof getStaticProps>) {
+  const { result, error, fetchData, loading } = useDictionarySearch(dico);
   const [isEmptyField, setIsEmptyField] = useState(false);
-  const mainRef = useRef(null);
 
   useEffect(() => {
     if (!result) {
@@ -38,9 +36,24 @@ export default function Home() {
           !isEmptyField &&
           !loading && <ErrorApi />}
         {result && !error && !isEmptyField && !loading && (
-          <Dictionnary dictionnary={result} />
+          <Dictionnary dictionnary={result || dico || []} />
         )}
       </main>
     </>
   );
 }
+
+async function loadDico() {
+  const res = await fetch(
+    "https://api.dictionaryapi.dev/api/v2/entries/en/dictionary"
+  );
+  const dico = await res.json();
+  return dico;
+}
+
+export const getStaticProps: GetStaticProps<{
+  dico: any;
+}> = async () => {
+  const dico = await loadDico();
+  return { props: { dico } };
+};

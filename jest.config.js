@@ -6,7 +6,7 @@ const createJestConfig = nextJest({
   dir: ".",
 });
 
-const customJestConfig = {
+const config = {
   setupFilesAfterEnv: ["<rootDir>/jest.setup.ts"],
   moduleDirectories: ["node_modules", "<rootDir>/"],
   modulePaths: ["<rootDir>"],
@@ -18,7 +18,6 @@ const customJestConfig = {
   collectCoverageFrom: [
     "!**/node_modules/** ",
     "<rootDir>/src/**/*.{js,jsx,ts,tsx}",
-    "<rootDir>/src/components/**/*.{js,jsx,ts,tsx}",
     "<rootDir>/src/pages/**/*.{js,jsx,ts,tsx}",
   ],
   coverageDirectory: "coverage",
@@ -35,4 +34,4 @@ const customJestConfig = {
   ],
 };
 
-module.exports = createJestConfig(customJestConfig);
+module.exports = createJestConfig(config);

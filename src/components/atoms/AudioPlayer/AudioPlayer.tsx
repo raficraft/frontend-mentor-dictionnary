@@ -1,5 +1,5 @@
 import styles from "./AudioPlayer.module.scss";
-import useAudioPlayer from "../../../hooks/useAudioPlayer/useAudioPlayer";
+import useAudioPlayer from "@hooks/useAudioPlayer/useAudioPlayer";
 import { useTheme } from "@context/useTheme";
 import { IconPlay, IconPause } from "@assets/svg/icons";
 

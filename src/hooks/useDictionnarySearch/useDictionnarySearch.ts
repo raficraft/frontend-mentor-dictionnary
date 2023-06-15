@@ -5,10 +5,7 @@ type DictionaryError = {
   message: string;
 };
 
-interface DictionaryApiResponse {
-  data: DictionaryApiResult[];
-  error?: string;
-}
+
 
 type UseDictionarySearchResult = {
   loading: boolean;
@@ -17,8 +14,8 @@ type UseDictionarySearchResult = {
   fetchData: (word: string) => Promise<void>;
 };
 
-const useDictionarySearch = (): UseDictionarySearchResult => {
-  const [result, setResult] = useState<DictionaryApiResult | undefined>(undefined);
+const useDictionarySearch = (initialeState: any): UseDictionarySearchResult => {
+  const [result, setResult] = useState<DictionaryApiResult | undefined>(initialeState[0]);
   const [error, setError] = useState<DictionaryError | undefined>(undefined);
   const [loading, setLoading] = useState<boolean>(false);
 
@@ -46,6 +43,8 @@ const useDictionarySearch = (): UseDictionarySearchResult => {
       setLoading(false);
     }
   };
+
+ 
 
   return { result, error, fetchData, loading };
 };
