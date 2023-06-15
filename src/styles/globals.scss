@@ -1,7 +1,7 @@
-@use "./components/atoms/form/input.scss";
-@use "./components/atoms/text/text.scss";
-@import "./mixin/mixin.scss";
-@import "./utils/animation.scss";
+@use "@css/components/atoms/form/input.scss";
+@use "@css/components/atoms/Text/text.scss";
+@import "@css/mixin/mixin.scss";
+@import "@css/utils/animation.scss";
 @import url("https://fonts.googleapis.com/css2?family=Inconsolata&family=Inter&family=Lora&display=swap");
 
 :root {
