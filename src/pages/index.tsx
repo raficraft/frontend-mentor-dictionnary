@@ -1,24 +1,14 @@
 import Head from "next/head";
-import React, { useEffect, useState } from "react";
 import { Dictionnary, ErrorApi, SearchWord } from "@organisms/index";
-import { useDictionarySearch } from "@hooks/index";
 import { Loading } from "@atoms/index";
 import styles from "@styles/pages/Home.module.scss";
 import type { InferGetStaticPropsType, GetStaticProps } from "next";
+import useApiStore from "src/store/useDictionaryAPI/useDictionaryApi";
 
 export default function Home({
   dico,
 }: InferGetStaticPropsType<typeof getStaticProps>) {
-  const { result, error, fetchData, loading } = useDictionarySearch(dico);
-  const [isEmptyField, setIsEmptyField] = useState(false);
-
-  useEffect(() => {
-    if (!result) {
-      setIsEmptyField(true);
-    } else {
-      setIsEmptyField(false);
-    }
-  }, [result]);
+  const { result, error, loading } = useApiStore();
 
   return (
     <>
@@ -28,15 +18,13 @@ export default function Home({
         <meta name="viewport" content="width=device-width, initial-scale=1" />
         <link rel="icon" href="/favicon.ico" />
       </Head>
-      <SearchWord callApi={fetchData} />
+      <SearchWord />
 
       <main className={styles.main}>
         {loading && <Loading />}
-        {error?.message === "No Definitions found" &&
-          !isEmptyField &&
-          !loading && <ErrorApi />}
-        {result && !error && !isEmptyField && !loading && (
-          <Dictionnary dictionnary={result || dico || []} />
+        {error?.message === "No Definitions found" && !loading && <ErrorApi />}
+        {(result || dico) && !error && !loading && (
+          <Dictionnary dictionnary={result || dico[0] || []} />
         )}
       </main>
     </>
@@ -44,9 +32,8 @@ export default function Home({
 }
 
 async function loadDico() {
-  const res = await fetch(
-    "https://api.dictionaryapi.dev/api/v2/entries/en/dictionary"
-  );
+  const url = process.env.DICTIONARY_API_URL;
+  const res = await fetch(`${url}dictionary`);
   const dico = await res.json();
   return dico;
 }

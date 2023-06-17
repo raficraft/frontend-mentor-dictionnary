@@ -4,15 +4,13 @@ import { IconMagnify } from "@assets/svg/icons";
 import { Field } from "@molecules/index";
 import { useForm } from "@hooks/index";
 import { debounce } from "@utils/debounce/debounce";
+import useApiStore from "src/store/useDictionaryAPI/useDictionaryApi";
 
-interface SearchWordProps {
-  callApi: (data: string) => void;
-}
-
-const SearchWord: React.ForwardRefRenderFunction<
-  HTMLFormElement,
-  SearchWordProps
-> = ({ callApi }, ref) => {
+const SearchWord: React.ForwardRefRenderFunction<HTMLFormElement> = (
+  {},
+  ref
+) => {
+  const { fetchData } = useApiStore();
   const { validateForm, validateField, errors, getFormData } = useForm({
     fields: {
       search: {
@@ -30,9 +28,9 @@ const SearchWord: React.ForwardRefRenderFunction<
     const dataForm = getFormData(event);
     event.preventDefault();
     if (validateForm(event)) {
-      callApi(dataForm.search);
+      fetchData(dataForm.search);
     } else {
-      callApi(dataForm.search);
+      fetchData(dataForm.search);
     }
   };
 
@@ -41,9 +39,9 @@ const SearchWord: React.ForwardRefRenderFunction<
       event.preventDefault();
       const searchValue = event.target.value;
       if (validateField(event)) {
-        callApi(searchValue);
+        fetchData(searchValue);
       } else {
-        callApi(searchValue);
+        fetchData(searchValue);
       }
     },
     300

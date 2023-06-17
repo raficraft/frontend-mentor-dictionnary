@@ -2,9 +2,10 @@ import { NextApiRequest, NextApiResponse } from 'next';
 
 export default async function handler(req: NextApiRequest, res: NextApiResponse) {
   const { word } = req.query as { word: string };
+  const url = process.env.DICTIONARY_API_URL;
 
   try {
-    const response = await fetch(`https://api.dictionaryapi.dev/api/v2/entries/en/${word}`);
+    const response = await fetch(`${url}${word}`);
     const data = await response.json();
 
     const noDefinitionsFound = data[0].title || false

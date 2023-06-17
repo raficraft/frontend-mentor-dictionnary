@@ -1,7 +1,7 @@
 import styles from "./AudioPlayer.module.scss";
 import useAudioPlayer from "@hooks/useAudioPlayer/useAudioPlayer";
-import { useTheme } from "@context/useTheme";
 import { IconPlay, IconPause } from "@assets/svg/icons";
+import useThemeStore from "src/store/useThemeStore/useThemeStore";
 
 type AudioPlayerProps = {
   src: string | null;
@@ -10,7 +10,7 @@ type AudioPlayerProps = {
 const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
   const { playing, pause, pauseAudio, playAudio, handleEnded, audioRef } =
     useAudioPlayer(src);
-  const { theme } = useTheme();
+  const theme = useThemeStore((state) => state.theme);
 
   return (
     <>

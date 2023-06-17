@@ -1,25 +1,16 @@
 import React from "react";
-import { render, fireEvent, waitFor } from "@testing-library/react";
+import { render, fireEvent } from "@testing-library/react";
 import SwitchTheme from "../SwitchTheme";
-import { ThemeProvider, useTheme } from "@context/useTheme";
 
 describe("SwitchTheme component", () => {
   test("renders the SwitchTheme component correctly", () => {
-    const { getByTestId } = render(
-      <ThemeProvider>
-        <SwitchTheme />
-      </ThemeProvider>
-    );
+    const { getByTestId } = render(<SwitchTheme />);
     const switchTheme = getByTestId("switch-theme-button");
     expect(switchTheme).toBeInTheDocument();
   });
 
   test("changes the body data-theme attribute on theme switch", () => {
-    const { getByTestId } = render(
-      <ThemeProvider>
-        <SwitchTheme />
-      </ThemeProvider>
-    );
+    const { getByTestId } = render(<SwitchTheme />);
 
     const body = document.body;
     expect(body).toHaveAttribute("data-theme", "light");
@@ -31,11 +22,7 @@ describe("SwitchTheme component", () => {
   });
 
   test("changes the body data-theme attribute on theme switch", () => {
-    const { getByTestId } = render(
-      <ThemeProvider>
-        <SwitchTheme />
-      </ThemeProvider>
-    );
+    const { getByTestId } = render(<SwitchTheme />);
 
     const body = document.body;
     expect(body).toHaveAttribute("data-theme", "light");
@@ -47,11 +34,7 @@ describe("SwitchTheme component", () => {
   });
 
   test("renders the SwitchTheme component correctly with different themes", () => {
-    const { getByTestId } = render(
-      <ThemeProvider>
-        <SwitchTheme />
-      </ThemeProvider>
-    );
+    const { getByTestId } = render(<SwitchTheme />);
 
     // Test with light theme
     expect(getByTestId("switch-theme-button")).toHaveAttribute(

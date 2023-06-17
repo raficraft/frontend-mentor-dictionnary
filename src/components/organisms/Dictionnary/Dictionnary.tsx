@@ -9,6 +9,7 @@ interface DictionnaryProps {
 }
 
 function Dictionnary({ dictionnary }: DictionnaryProps) {
+  console.log("-------------------------------------------------");
   console.log("hydrate : ", dictionnary);
   const { word, phonetic, phonetics, meanings, sourceUrls } = dictionnary;
 

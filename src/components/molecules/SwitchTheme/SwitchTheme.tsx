@@ -3,7 +3,7 @@ import { SwitchButton } from "@atoms/index";
 import { IconMoon, IconSun } from "@assets/svg/icons";
 import styles from "./SwitchTheme.module.scss";
 import { SwitchTransition, CSSTransition } from "react-transition-group";
-import { useTheme } from "@context/useTheme";
+import useThemeStore from "src/store/useThemeStore/useThemeStore";
 
 const SwitchTheme: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -13,7 +13,8 @@ const SwitchTheme: React.FC = () => {
   let checked = inputRef.current?.checked || false;
   const svgRef = checked ? moonRef : sunRef;
 
-  const { theme, toggleTheme } = useTheme();
+  const theme = useThemeStore((state) => state.theme);
+  const toggleTheme = useThemeStore((state) => state.toggleTheme);
 
   useEffect(() => {
     document.body.dataset.theme = theme;
