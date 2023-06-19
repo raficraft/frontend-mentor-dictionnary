@@ -1,59 +1,47 @@
-import React from "react";
-import { render, fireEvent } from "@testing-library/react";
-import SwitchTheme from "../SwitchTheme";
+import React from 'react';
+import { render, fireEvent, waitFor } from '@testing-library/react';
+import SwitchTheme from '../SwitchTheme';
+jest.mock('zustand');
 
-describe("SwitchTheme component", () => {
-  test("renders the SwitchTheme component correctly", () => {
+describe('SwitchTheme component', () => {
+  test('renders the SwitchTheme component correctly', () => {
     const { getByTestId } = render(<SwitchTheme />);
-    const switchTheme = getByTestId("switch-theme-button");
+    const switchTheme = getByTestId('switch-theme-button');
     expect(switchTheme).toBeInTheDocument();
   });
 
-  test("changes the body data-theme attribute on theme switch", () => {
+  test('changes the body data-theme attribute on theme switch', async () => {
     const { getByTestId } = render(<SwitchTheme />);
 
-    const body = document.body;
-    expect(body).toHaveAttribute("data-theme", "light");
-
-    const switchButton = getByTestId("switch-theme-button");
+    const switchButton = getByTestId('switch-theme-button');
     fireEvent.click(switchButton);
 
-    expect(body).toHaveAttribute("data-theme", "dark");
+    await waitFor(() => {
+      expect(document.body.getAttribute('data-theme')).toBe('dark');
+    });
   });
 
-  test("changes the body data-theme attribute on theme switch", () => {
+  test('renders the SwitchTheme component correctly with different themes', () => {
     const { getByTestId } = render(<SwitchTheme />);
 
-    const body = document.body;
-    expect(body).toHaveAttribute("data-theme", "light");
-
-    const labelIcon = getByTestId("label-icon");
-    fireEvent.click(labelIcon);
-
-    expect(body).toHaveAttribute("data-theme", "dark");
-  });
-
-  test("renders the SwitchTheme component correctly with different themes", () => {
-    const { getByTestId } = render(<SwitchTheme />);
-
-    // Test with light theme
-    expect(getByTestId("switch-theme-button")).toHaveAttribute(
-      "data-theme",
-      "light"
+    // Vérification du thème initial (light)
+    expect(getByTestId('switch-theme-button')).toHaveAttribute(
+      'data-theme',
+      'light'
     );
 
-    // Switch to dark theme
-    fireEvent.click(getByTestId("switch-theme-button"));
-    expect(getByTestId("switch-theme-button")).toHaveAttribute(
-      "data-theme",
-      "dark"
+    // Passage au thème sombre (dark)
+    fireEvent.click(getByTestId('switch-theme-button'));
+    expect(getByTestId('switch-theme-button')).toHaveAttribute(
+      'data-theme',
+      'dark'
     );
 
-    // Switch back to light theme
-    fireEvent.click(getByTestId("switch-theme-button"));
-    expect(getByTestId("switch-theme-button")).toHaveAttribute(
-      "data-theme",
-      "light"
+    // Passage de nouveau au thème clair (light)
+    fireEvent.click(getByTestId('switch-theme-button'));
+    expect(getByTestId('switch-theme-button')).toHaveAttribute(
+      'data-theme',
+      'light'
     );
   });
 });

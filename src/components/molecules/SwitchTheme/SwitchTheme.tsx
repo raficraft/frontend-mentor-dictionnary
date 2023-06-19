@@ -1,9 +1,9 @@
-import React, { useEffect, useRef } from "react";
-import { SwitchButton } from "@atoms/index";
-import { IconMoon, IconSun } from "@assets/svg/icons";
-import styles from "./SwitchTheme.module.scss";
-import { SwitchTransition, CSSTransition } from "react-transition-group";
-import useThemeStore from "src/store/useThemeStore/useThemeStore";
+import React, { useEffect, useRef } from 'react';
+import { SwitchButton } from '@atoms/index';
+import { IconMoon, IconSun } from '@assets/svg/icons';
+import styles from './SwitchTheme.module.scss';
+import { SwitchTransition, CSSTransition } from 'react-transition-group';
+import useThemeStore from '@store/useThemeStore/useThemeStore';
 
 const SwitchTheme: React.FC = () => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -28,19 +28,19 @@ const SwitchTheme: React.FC = () => {
       }}
       externalStyles={styles}
       ref={inputRef}
-      data-testid="switch-theme-button"
+      data-testid='switch-theme-button'
     >
-      <label htmlFor="switchTheme" className={styles.label}>
+      <label htmlFor='switchTheme' className={styles.label}>
         <SwitchTransition>
           <CSSTransition
             classNames={styles}
             nodeRef={svgRef}
             timeout={300}
-            key={checked ? "moon" : "sun"}
+            key={checked ? 'moon' : 'sun'}
           >
-            <span ref={svgRef} data-testid="label-icon">
+            <span ref={svgRef} data-testid='label-icon'>
               {checked && (
-                <IconMoon className={styles.moon} color="rgb(164, 69, 237)" />
+                <IconMoon className={styles.moon} color='rgb(164, 69, 237)' />
               )}
               {!checked && <IconSun className={styles.sun} />}
             </span>

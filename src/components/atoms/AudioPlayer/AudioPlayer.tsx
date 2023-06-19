@@ -21,19 +21,19 @@ const AudioPlayer: React.FC<AudioPlayerProps> = ({ src }) => {
           onEnded={handleEnded}
           data-playing={playing}
           data-pause={pause}
-          aria-label="Audio Player"
+          aria-label='Audio Player'
         />
       )}
       <button
         onClick={!pause ? playAudio : pauseAudio}
-        type="button"
+        type='button'
         className={styles.btn}
         data-theme={theme}
-        data-testid="audio-player-button"
+        data-testid='audio-player-button'
         aria-label={!pause ? "Play Audio" : "Pause Audio"}
       >
-        {!pause && <IconPlay data-testid="icon-play" />}
-        {pause && <IconPause data-testid="icon-pause" />}
+        {!pause && <IconPlay data-testid='icon-play' />}
+        {pause && <IconPause data-testid='icon-pause' />}
       </button>
     </>
   );

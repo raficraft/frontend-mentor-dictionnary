@@ -1,4 +1,4 @@
-import { useState, useRef, MutableRefObject } from "react";
+import { useState, useRef, MutableRefObject } from 'react';
 
 type UseAudioPlayerResult = {
   playing: boolean;

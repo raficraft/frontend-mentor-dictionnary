@@ -1,17 +1,17 @@
-import React, { Ref, useRef } from "react";
-import { Text, AudioPlayer } from "@atoms/index";
-import styles from "./Dictionnary.module.scss";
-import DictionaryApiResult from "@api/types";
-import Link from "next/link";
-import { IconExternalLink } from "@assets/svg/icons";
+import React, { Ref, useRef } from 'react';
+import { Text, AudioPlayer } from '@atoms/index';
+import styles from './Dictionnary.module.scss';
+import DictionaryApiResult from '@api/types';
+import Link from 'next/link';
+import { IconExternalLink } from '@assets/svg/icons';
+import useApiStore from '@store/useDictionaryAPI/useDictionaryApi';
 interface DictionnaryProps {
   dictionnary: DictionaryApiResult;
 }
 
 function Dictionnary({ dictionnary }: DictionnaryProps) {
-  console.log("-------------------------------------------------");
-  console.log("hydrate : ", dictionnary);
   const { word, phonetic, phonetics, meanings, sourceUrls } = dictionnary;
+  const { fetchData } = useApiStore();
 
   const mainRef = useRef(null);
 
@@ -29,10 +29,10 @@ function Dictionnary({ dictionnary }: DictionnaryProps) {
     <section className={styles.dictionnary} ref={mainRef}>
       <header className={styles.header}>
         <div className={styles.title}>
-          <Text tag="h1" className="text_xl">
+          <Text tag='h1' className='text_xl'>
             {word}
           </Text>
-          <Text tag="p" className="text_lg text_accent">
+          <Text tag='p' className='text_lg text_accent'>
             {phonetic}
           </Text>
         </div>
@@ -43,13 +43,13 @@ function Dictionnary({ dictionnary }: DictionnaryProps) {
           return (
             <div key={`meaning-${key}`} className={styles.meanings}>
               <header className={styles.separator}>
-                <Text tag="h2" className="text_lg bold italic">
+                <Text tag='h2' className='text_lg bold italic'>
                   {meanings[key].partOfSpeech}
                 </Text>
                 <span className={styles.line}></span>
               </header>
               <article>
-                <Text className="text_gray">Meaning</Text>
+                <Text className='text_gray'>Meaning</Text>
                 <ul className={styles.list}>
                   {Object.keys(meanings[key].definitions).map((_, keys) => {
                     return (
@@ -70,7 +70,10 @@ function Dictionnary({ dictionnary }: DictionnaryProps) {
                       return (
                         <Text
                           key={`synonym_${key}`}
-                          className="text_accent bold"
+                          className='text_accent bold'
+                          onClick={() => {
+                            fetchData(synonym);
+                          }}
                         >
                           {synonym}
                         </Text>
@@ -83,13 +86,13 @@ function Dictionnary({ dictionnary }: DictionnaryProps) {
           );
         })}
       </div>
-      <hr className="hr_horizontal"></hr>
+      <hr className='hr_horizontal'></hr>
       {sourceUrls.length > 0 && (
         <footer className={styles.source}>
-          <Text className="text_gray">Source</Text>
-          <Link href={sourceUrls[0].replace(/%20/g, "_")} target="_blank">
-            {sourceUrls[0].replace(/%20/g, "_")}
-            <IconExternalLink color="#757575" />
+          <Text className='text_gray'>Source</Text>
+          <Link href={sourceUrls[0].replace(/%20/g, '_')} target='_blank'>
+            {sourceUrls[0].replace(/%20/g, '_')}
+            <IconExternalLink color='#757575' />
           </Link>
         </footer>
       )}

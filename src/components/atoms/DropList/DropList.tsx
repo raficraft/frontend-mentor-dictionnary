@@ -43,16 +43,16 @@ const DropList: React.FC<DropListProps> = ({
     <div ref={refOutsideClick} className={styles.dropList}>
       <button
         className={styles.select}
-        type="button"
+        type='button'
         value={options[selectedIndex].value}
         onClick={() => {
           setOpen(!open);
         }}
         onKeyDown={handleKeyDown}
-        data-testid="select-button"
-        aria-haspopup="listbox"
+        data-testid='select-button'
+        aria-haspopup='listbox'
         aria-expanded={open}
-        aria-label="Select an option"
+        aria-label='Select an option'
       >
         {options[selectedIndex].label}
         <IconArrowDown />
@@ -60,8 +60,8 @@ const DropList: React.FC<DropListProps> = ({
       <div
         className={styles.optionsList}
         data-open={open}
-        data-testid="options-list"
-        role="listbox"
+        data-testid='options-list'
+        role='listbox'
         aria-multiselectable={false}
       >
         {options.map((option, key) => {
@@ -71,13 +71,13 @@ const DropList: React.FC<DropListProps> = ({
                 ${styles.option} 
                 ${key === selectedIndex ? styles.active : ""}
               `}
-              type="button"
+              type='button'
               key={key}
               value={option.value}
               ref={optionsRefs.current[key]}
               onClick={() => handleOptionClick(key, option)}
               data-testid={`option-button-${key}`}
-              role="option"
+              role='option'
               aria-selected={key === selectedIndex}
             >
               {option.label}
