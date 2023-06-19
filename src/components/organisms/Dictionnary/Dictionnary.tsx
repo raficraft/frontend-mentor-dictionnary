@@ -16,7 +16,7 @@ function Dictionnary({ dictionnary }: DictionnaryProps) {
   const mainRef = useRef(null);
 
   const getAudio = () => {
-    if (phonetics.length === 0) {
+    if (!phonetics || phonetics.length === 0) {
       return <AudioPlayer src={null} />;
     } else {
       const valuesArray = Object.values(phonetics);

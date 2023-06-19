@@ -1,9 +1,9 @@
 import Head from 'next/head';
 import { Dictionnary, ErrorApi, SearchWord } from '@organisms/index';
-import { Loading } from '@atoms/index';
 import styles from '@styles/pages/Home.module.scss';
 import type { InferGetStaticPropsType, GetStaticProps } from 'next';
 import useApiStore from '@store/useDictionaryAPI/useDictionaryApi';
+import DictionaryApiResult from '@api/types';
 
 export default function Home({
   dico,
@@ -35,7 +35,7 @@ export default function Home({
   );
 }
 
-async function loadDico() {
+export async function loadDico(): Promise<DictionaryApiResult[]> {
   const url = process.env.DICTIONARY_API_URL;
   const res = await fetch(`${url}dictionary`);
   const dico = await res.json();
@@ -43,7 +43,7 @@ async function loadDico() {
 }
 
 export const getStaticProps: GetStaticProps<{
-  dico: any;
+  dico: DictionaryApiResult[];
 }> = async () => {
   const dico = await loadDico();
   return { props: { dico } };

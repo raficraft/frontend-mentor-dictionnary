@@ -24,20 +24,17 @@ describe('SwitchTheme component', () => {
   test('renders the SwitchTheme component correctly with different themes', () => {
     const { getByTestId } = render(<SwitchTheme />);
 
-    // Vérification du thème initial (light)
     expect(getByTestId('switch-theme-button')).toHaveAttribute(
       'data-theme',
       'light'
     );
 
-    // Passage au thème sombre (dark)
     fireEvent.click(getByTestId('switch-theme-button'));
     expect(getByTestId('switch-theme-button')).toHaveAttribute(
       'data-theme',
       'dark'
     );
 
-    // Passage de nouveau au thème clair (light)
     fireEvent.click(getByTestId('switch-theme-button'));
     expect(getByTestId('switch-theme-button')).toHaveAttribute(
       'data-theme',
