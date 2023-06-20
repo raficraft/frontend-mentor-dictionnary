@@ -1,5 +1,5 @@
-import { create, useStore } from "zustand";
-import DictionaryApiResult from "@api/types";
+import { create, useStore } from 'zustand';
+import DictionaryApiResult from '@api/types';
 
 type DictionaryError = {
   message: string;
@@ -17,14 +17,14 @@ const useApiStore = create<UseDictionarySearchResult>((set) => ({
   loading: false,
   result: undefined,
   error: undefined,
-  word: "",
+  word: '',
   fetchData: async (word) => {
     set((state) => ({
       ...state,
       loading: true,
     }));
 
-    if (word.trim() === "") {
+    if (word.trim() === '') {
       set((state) => ({
         ...state,
         result: undefined,
@@ -36,9 +36,8 @@ const useApiStore = create<UseDictionarySearchResult>((set) => ({
     try {
       const response = await fetch(`/api/dictionary?word=${word}`);
       const data: any = await response.json();
-      console.log("inside", data);
       if (data.error) {
-        throw new Error("No Definitions found");
+        throw new Error('No Definitions found');
       } else {
         set((state) => ({
           ...state,
@@ -51,7 +50,7 @@ const useApiStore = create<UseDictionarySearchResult>((set) => ({
     } catch (error: any) {
       set((state) => ({
         ...state,
-        error: { message: "No Definitions found" },
+        error: { message: 'No Definitions found' },
         loading: false,
       }));
     }

@@ -2,7 +2,7 @@ import { renderHook, act } from '@testing-library/react';
 import useThemeStore from '../useThemeStore';
 
 describe('useThemeStore', () => {
-  it('should toggle theme correctly', () => {
+  test('should toggle theme correctly', () => {
     const { result } = renderHook(() => useThemeStore());
 
     act(() => {
